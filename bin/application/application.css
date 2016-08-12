@@ -1,0 +1,24 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+@font-face{
+	src: url(../resources/gameFont.ttf);
+}
+.button{
+	-fx-font-family: "Need for Font";
+	-fx-background-color:transparent;
+	-fx-font-size: 20px;
+}
+.button:hover{
+	-fx-underline:true;
+	-fx-text-fill:white;
+	
+}
+.root{
+	-fx-background-color: transparent;
+}
+.label{
+	-fx-font-family: "Need for Font";
+	-fx-background-color:transparent;
+	-fx-font-size: 26px;
+	
+}
+
