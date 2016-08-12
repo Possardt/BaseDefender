@@ -2,6 +2,7 @@ package application;
 
 
 import java.util.HashMap;
+import java.util.Iterator;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
@@ -66,11 +67,7 @@ public class Turret {
 		if(relativeTime < 50 && barrel.getX() < 360){
 			barrel.setX(barrel.getX() + 1);
 			barrelEnd.setX(barrelEnd.getX() + 1);
-		}
-		//iunno why the barrelend doesnt set to the value after the rotate??
-		if(time==0){
-			//System.out.println("shotLocationX: " + shotLocationX + ", shotlocationy: " + shotLocationY);
-		}
+		}		
 	}
 	
 	public void turretShot(Pane p, int time, double mouseX, double mouseY){
@@ -79,10 +76,10 @@ public class Turret {
 			p.getChildren().add(bullet);
 			barrelRotation.setAngle(barrelRotation.getAngle() + 5);
 			bullet.getTransforms().add(barrelRotation);
-			//old param: getDirection(mouseX,mouseY,(base.getX() + (base.getWidth()/2)),base.getY(), bullet)
 			bullets.put(bullet, 0.0);
-			//System.out.println("base x: " + (base.getX() + (base.getWidth()/2)) + ", base y: " + base.getY());
 		}else{
+			/*
+			//moving and removing the bullets fired from the turret
 			if(!bullets.isEmpty()){
 				for(Circle c : bullets.keySet()){
 					if(c.getCenterX() < -100 || c.getCenterX() > 1200){
@@ -90,28 +87,25 @@ public class Turret {
 						System.out.println("bullet removed.");
 						bullets.remove(c);
 					}else{
-					c.setCenterX(c.getCenterX() + (bulletSpeed * Math.cos(bullets.get(c))));
+						c.setCenterX(c.getCenterX() + (bulletSpeed * Math.cos(bullets.get(c))));
 					}
-					//c.setCenterY(c.getCenterY() + (bulletSpeed * Math.sin(bullets.get(c))));
-					//System.out.println("bullet x: " + c.getCenterX() + ", bullet y :" + c.getCenterY());
-					//System.out.println("Moving bullet x by: " + (bulletSpeed * Math.cos(bullets.get(c))));
-					//System.out.println("Moving bullet y by: " + (bulletSpeed * Math.sin(bullets.get(c))));
+				}
+			}*/
+			Iterator<Circle> bulletIterator = bullets.keySet().iterator();
+			while(bulletIterator.hasNext()){
+				Circle bullet = bulletIterator.next();
+				if(bullet.getCenterX() < -100 || bullet.getCenterX() > 1200){
+					p.getChildren().remove(bullet);
+					System.out.println("bullet removed.");
+					bulletIterator.remove();
+				}else{
+					bullet.setCenterX(bullet.getCenterX() + (bulletSpeed * Math.cos(0.0)));
 				}
 			}
-		}
-		//System.out.println("barrel end x: " + barrelEnd.getX() + ", barrel end y:" + barrelEnd.getY());
-		//move the bullets??
-		
+		}		
 	}
 	
 	public void setTimeShot(int t){
 		this.timeShot = t;
-	}
-	
-	public double getDirection(double mouseX, double mouseY, double bulletX, double bulletY, Circle c){
-		//double angle = c.getRotate();
-		//double deltaX = bulletX + Math.cos(angle) * bulletX / 2;
-		//double deltaY = bulletY + Math.sin(angle) * bulletY / 2;
-		return 0.0;
 	}
 }

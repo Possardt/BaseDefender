@@ -73,18 +73,18 @@ private double mouseX,mouseY;
 		
 		if(isGameStarted)
 			System.out.println("game timer started");
-		gameTimer = new AnimationTimer(){
-			@Override
-			public void handle(long arg0){
-				if(timeKeeper < 500){
-					doCountDown(timeKeeper);
-				}else{
-					missile.animateMissile(gameScreenLayout, explosion);
-					missile1.animateMissile(gameScreenLayout, explosion1);
-					missile2.animateMissile(gameScreenLayout, explosion2);
-					missile3.animateMissile(gameScreenLayout, explosion3);
-					missile4.animateMissile(gameScreenLayout, explosion4);
-				}
+			gameTimer = new AnimationTimer(){
+				@Override
+				public void handle(long arg0){
+					if(timeKeeper < 500){
+						doCountDown(timeKeeper);
+					}else{
+						missile.animateMissile(gameScreenLayout, explosion);
+						missile1.animateMissile(gameScreenLayout, explosion1);
+						missile2.animateMissile(gameScreenLayout, explosion2);
+						missile3.animateMissile(gameScreenLayout, explosion3);
+						missile4.animateMissile(gameScreenLayout, explosion4);
+					}
 				turret.rotateTurret(mouseX, mouseY);
 				turret.turretRecoil(getGameScreenLayout(),timeKeeper);
 				turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY);
