@@ -100,6 +100,8 @@ public class Turret {
 					bulletIterator.remove();
 				}else{
 					bullet.setCenterX(bullet.getCenterX() + (bulletSpeed * Math.cos(0.0)));
+					
+					//System.out.println("bullet x: " + bullet.getCenterX() + ", bullet y: " + bullet.getCenterY());
 				}
 			}
 		}		
@@ -107,5 +109,8 @@ public class Turret {
 	
 	public void setTimeShot(int t){
 		this.timeShot = t;
+	}
+	public Iterator<Circle> getBulletIterator(){
+		return bullets.keySet().iterator();
 	}
 }

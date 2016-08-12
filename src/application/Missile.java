@@ -1,6 +1,8 @@
 package application;
 
 
+import java.util.Iterator;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -88,6 +90,7 @@ public class Missile {
 		movePolygonY(blade1);
 		movePolygonY(tip);
 		movePolygonY(blade2);
+		//System.out.println("missile x: " + missile.getX() + ", missile y: " + missile.getY());
 	}
 	
 	public boolean isExploded(){
@@ -98,8 +101,23 @@ public class Missile {
 		return isExploded;
 	}
 	
+	public void bulletMissileCollision(Iterator<Circle> bullets){
+		if(!bullets.hasNext()){
+			return;
+		}else{
+			while(bullets.hasNext()){
+				Circle bullet = bullets.next();
+				if(bullet.getBoundsInParent().intersects(missile.getBoundsInParent()))
+					System.out.println("collision!");
+			}
+		}
+	}
+	
 	public double getY(){
 		return missile.getY();
+	}
+	public double getX(){
+		return missile.getX();
 	}
 	public void animateMissile(Pane screenLayout, Explosion explosion){
 		if(exploded){

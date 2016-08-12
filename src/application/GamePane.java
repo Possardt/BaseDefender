@@ -20,10 +20,10 @@ private double mouseX,mouseY;
 	public GamePane(Stage window){
 		gameLabel = new Label("Defend the Base!");
 		countDown = new Label("3");
-		gameLabel.setLayoutX(140);
+		gameLabel.setLayoutX(180);
 		gameLabel.setLayoutY(40);
-		countDown.setLayoutX(310);
-		countDown.setLayoutY(60);
+		countDown.setLayoutX(340);
+		countDown.setLayoutY(100);
 		gameScreenLayout = new Pane();
 		turret = new Turret();
 		Rectangle bottom = new Rectangle(0,480,700,20);
@@ -54,22 +54,22 @@ private double mouseX,mouseY;
 	public void startGame(){
 		
 		Explosion explosion = new Explosion();
-		Explosion explosion1 = new Explosion();
-		Explosion explosion2 = new Explosion();
-		Explosion explosion3 = new Explosion();
-		Explosion explosion4 = new Explosion();
+		//Explosion explosion1 = new Explosion();
+		//Explosion explosion2 = new Explosion();
+		//Explosion explosion3 = new Explosion();
+		//Explosion explosion4 = new Explosion();
 		
 		Missile missile = new Missile(2,700,500);
-		Missile missile1 = new Missile(3,700,500);
-		Missile missile2 = new Missile(2,700,500);
-		Missile missile3 = new Missile(3,700,500);
-		Missile missile4 = new Missile(2,700,500);
+		//Missile missile1 = new Missile(3,700,500);
+		//Missile missile2 = new Missile(2,700,500);
+		//Missile missile3 = new Missile(3,700,500);
+		//Missile missile4 = new Missile(2,700,500);
 		
 		addMissileToPane(missile);
-		addMissileToPane(missile1);
-		addMissileToPane(missile2);
-		addMissileToPane(missile3);
-		addMissileToPane(missile4);
+		//addMissileToPane(missile1);
+		//addMissileToPane(missile2);
+		//addMissileToPane(missile3);
+		//addMissileToPane(missile4);
 		
 		if(isGameStarted)
 			System.out.println("game timer started");
@@ -80,10 +80,15 @@ private double mouseX,mouseY;
 						doCountDown(timeKeeper);
 					}else{
 						missile.animateMissile(gameScreenLayout, explosion);
-						missile1.animateMissile(gameScreenLayout, explosion1);
-						missile2.animateMissile(gameScreenLayout, explosion2);
-						missile3.animateMissile(gameScreenLayout, explosion3);
-						missile4.animateMissile(gameScreenLayout, explosion4);
+						//missile1.animateMissile(gameScreenLayout, explosion1);
+						//missile2.animateMissile(gameScreenLayout, explosion2);
+						//missile3.animateMissile(gameScreenLayout, explosion3);
+						//missile4.animateMissile(gameScreenLayout, explosion4);
+						missile.bulletMissileCollision(turret.getBulletIterator());
+						//missile1.bulletMissileCollision(turret.getBulletIterator());
+						//missile2.bulletMissileCollision(turret.getBulletIterator());
+						//missile3.bulletMissileCollision(turret.getBulletIterator());
+						//missile4.bulletMissileCollision(turret.getBulletIterator());
 					}
 				turret.rotateTurret(mouseX, mouseY);
 				turret.turretRecoil(getGameScreenLayout(),timeKeeper);
