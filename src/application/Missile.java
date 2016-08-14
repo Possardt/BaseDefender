@@ -23,7 +23,7 @@ public class Missile {
 	boolean exploded = false;
 	private int missileSpeed;
 	private int explodeTime;
-	private double explodeLocation;
+	private double explodeLocationX,explodeLocationY;
 	private int screenHeight,screenWidth;
 	
 	public void setExplodeTime(int eTime){
@@ -34,12 +34,20 @@ public class Missile {
 		return this.explodeTime;
 	}
 	
-	public void setExplodeLocation(double eLocation){
-		this.explodeLocation = eLocation;
+	public void setExplodeLocationX(double eLocation){
+		this.explodeLocationX = eLocation;
 	}
 	
-	public double getExplodeLocation(){
-		return explodeLocation;
+	public double getExplodeLocationX(){
+		return explodeLocationX;
+	}
+	
+	public void setExplodeLocationY(double eLocation){
+		this.explodeLocationY = eLocation;
+	}
+	
+	public double getExplodeLocationY(){
+		return explodeLocationY;
 	}
 	
 	public Missile(int mSpeed, int screenWidth, int screenHeight){
@@ -93,24 +101,30 @@ public class Missile {
 		//System.out.println("missile x: " + missile.getX() + ", missile y: " + missile.getY());
 	}
 	
-	public boolean isExploded(){
-		if((missile.getY() + 30) > screenHeight)
+	public boolean isExploded(Iterator<Circle> bullets, Pane p, Explosion e){
+		if(((missile.getY() + 30) > screenHeight) || (bulletMissileCollision(bullets, p, e))){
 			isExploded = true;
-		else
+		} else{
 			isExploded = false;
+		}
 		return isExploded;
 	}
-	
-	public void bulletMissileCollision(Iterator<Circle> bullets){
+	//if there is a bullet/missile collision return the bullet, or dont return anything
+	public boolean bulletMissileCollision(Iterator<Circle> bullets, Pane p, Explosion e){
 		if(!bullets.hasNext()){
-			return;
+			return false;
 		}else{
 			while(bullets.hasNext()){
 				Circle bullet = bullets.next();
-				if(bullet.getBoundsInParent().intersects(missile.getBoundsInParent()))
+				if(bullet.getBoundsInParent().intersects(missile.getBoundsInParent())){
 					System.out.println("collision!");
+					bullets.remove();
+					p.getChildren().remove(bullet);
+					return true;
+				}
 			}
 		}
+		return false;
 	}
 	
 	public double getY(){
@@ -119,7 +133,7 @@ public class Missile {
 	public double getX(){
 		return missile.getX();
 	}
-	public void animateMissile(Pane screenLayout, Explosion explosion){
+	public void animateMissile(Pane screenLayout, Explosion explosion, Iterator<Circle> bullets){
 		if(exploded){
      	   explosion.missileExplode(screenLayout,this);
      	   if(getExplodeTime() > 100){
@@ -128,10 +142,11 @@ public class Missile {
      	   }else
      		   setExplodeTime(getExplodeTime() + 1);
         }else{
-     	   if(!isExploded())
+     	   if(!isExploded(bullets, screenLayout, explosion))
      		   moveMissile();
-     	   if(isExploded()){
-     		   setExplodeLocation(missile.getX());           		   
+     	   else{
+     		   setExplodeLocationY(missile.getY());
+     		   setExplodeLocationX(missile.getX());           		   
      		   missile.setX(Math.random() * screenWidth);
      		   missile.setY((Math.random() * -100) - 20);
      		   resetTip(missile.getX(),missile.getY());
@@ -215,5 +230,47 @@ public class Missile {
 	}
 	public int getScreenHeight(){
 		return this.screenHeight;
+	}
+	
+	public void animateMissileHomeScreen(Pane screenLayout, Explosion e){
+		if(exploded){
+	     	   e.missileExplode(screenLayout,this);
+	     	   if(getExplodeTime() > 100){
+	     		   exploded = false;
+	     		   setExplodeTime(0);
+	     	   }else
+	     		   setExplodeTime(getExplodeTime() + 1);
+	        }else{
+	     	   if(!missileBottomCollision())
+	     		   moveMissile();
+	     	   if(missileBottomCollision()){
+	     		   setExplodeLocationX(missile.getX());  
+	     		   setExplodeLocationY(missile.getY());
+	     		   missile.setX(Math.random() * screenWidth);
+	     		   missile.setY((Math.random() * -100) - 20);
+	     		   resetTip(missile.getX(),missile.getY());
+	     		   resetFire(missile.getX(),missile.getY());
+	     		   resetBlade1(missile.getX(),missile.getY());
+	     		   resetBlade2(missile.getX(),missile.getY());
+	     		   exploded = true;
+	     	   }
+	      }
+	}
+	
+	public boolean missileBottomCollision(){
+		if(missile.getY() + 30 > screenHeight)
+			return true;
+		return false;
+	}
+	
+	public void removeBulletFromIterator(Iterator<Circle> bullets, Circle bullet){
+		while(bullets.hasNext()){
+			Circle nextBullet = bullets.next();
+			if(nextBullet.equals(bullet)){
+				bullets.remove();
+				System.out.println("removing a bullet from collision");
+				break;
+			}
+		}
 	}
 }

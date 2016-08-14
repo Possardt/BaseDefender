@@ -2,7 +2,9 @@ package application;
 
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
@@ -17,7 +19,7 @@ public class Turret {
 	private double barrelAngle = 0;
 	private Rotate barrelRotation;
 	private int bulletSpeed = 3;
-	private HashMap<Circle, Double> bullets = new HashMap<Circle, Double>();
+	private Set<Circle> bullets = new HashSet<Circle>();
 	private int timeShot;
 	public Turret(){
 		base = new Rectangle(330,460, 40, 20);
@@ -76,7 +78,7 @@ public class Turret {
 			p.getChildren().add(bullet);
 			barrelRotation.setAngle(barrelRotation.getAngle() + 5);
 			bullet.getTransforms().add(barrelRotation);
-			bullets.put(bullet, 0.0);
+			bullets.add(bullet);
 		}else{
 			/*
 			//moving and removing the bullets fired from the turret
@@ -91,7 +93,7 @@ public class Turret {
 					}
 				}
 			}*/
-			Iterator<Circle> bulletIterator = bullets.keySet().iterator();
+			Iterator<Circle> bulletIterator = bullets.iterator();
 			while(bulletIterator.hasNext()){
 				Circle bullet = bulletIterator.next();
 				if(bullet.getCenterX() < -100 || bullet.getCenterX() > 1200){
@@ -111,6 +113,6 @@ public class Turret {
 		this.timeShot = t;
 	}
 	public Iterator<Circle> getBulletIterator(){
-		return bullets.keySet().iterator();
+		return bullets.iterator();
 	}
 }

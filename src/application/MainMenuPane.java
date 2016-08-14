@@ -68,11 +68,11 @@ public class MainMenuPane {
                 // UPDATE
             	
                 // RENDER
-               missile.animateMissile(homeScreenLayout, explosion);
-               missile1.animateMissile(homeScreenLayout, explosion1);
-               missile2.animateMissile(homeScreenLayout, explosion2);
-               missile3.animateMissile(homeScreenLayout, explosion3);
-               missile4.animateMissile(homeScreenLayout, explosion4);
+               missile.animateMissileHomeScreen(homeScreenLayout, explosion);
+               missile1.animateMissileHomeScreen(homeScreenLayout, explosion1);
+               missile2.animateMissileHomeScreen(homeScreenLayout, explosion2);
+               missile3.animateMissileHomeScreen(homeScreenLayout, explosion3);
+               missile4.animateMissileHomeScreen(homeScreenLayout, explosion4);
                
             }      
         };
