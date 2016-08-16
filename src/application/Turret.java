@@ -1,7 +1,6 @@
 package application;
 
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -21,6 +20,7 @@ public class Turret {
 	private int bulletSpeed = 3;
 	private Set<Circle> bullets = new HashSet<Circle>();
 	private int timeShot;
+	private int turretHealth = 100;
 	public Turret(){
 		base = new Rectangle(330,460, 40, 20);
 		baseDome = new Arc(base.getX() + (base.getWidth() / 2),base.getY(),40,40, 0, 180);
@@ -29,16 +29,11 @@ public class Turret {
 		base.setFill(Paint.valueOf("grey"));
 		barrelEnd.setFill(Paint.valueOf("grey"));
 		baseDome.setFill(Paint.valueOf("grey"));
-		//barrel.getTransforms().add(new Rotate(340,0,0));
 	}
 	
 	public void rotateTurret(double mousePositionX, double mousePositionY){
 		double angle = (int)Math.toDegrees(Math.atan2(mousePositionY - (barrel.getY() + 10),mousePositionX - (barrel.getX() + 5)));
 		barrelRotation = new Rotate(angle - 360,base.getX() + (base.getWidth() / 2), base.getY() - 10);
-		//angle = Math.abs(angle);
-		//System.out.println( "rotation axis: " + barrel.getRotationAxis().getX() + " " + barrel.getRotationAxis().getY() + " "+ barrel.getRotationAxis().getZ());
-		
-		//System.out.println("r: " + Math.abs(angle) + " z: " + base.getScaleZ());
 		if((angle != barrelAngle && (angle < 180))  ||(angle!= barrelAngle && (angle > 0))){
 			
 			barrel.getTransforms().clear();
@@ -50,10 +45,9 @@ public class Turret {
 			
 		}
 	}
-	//need to rethink this method
+
 	public void turretRecoil(Pane p, int time){
 		int relativeTime = time - timeShot;
-		//System.out.println("barrel x: "+barrel.getX());
 		if(barrel.getX() < 345){
 			barrel.setX(barrel.getX() + 1);
 			barrelEnd.setX(barrelEnd.getX() + 1);
@@ -79,20 +73,8 @@ public class Turret {
 			barrelRotation.setAngle(barrelRotation.getAngle() + 5);
 			bullet.getTransforms().add(barrelRotation);
 			bullets.add(bullet);
+			bullet.setOpacity(.1);
 		}else{
-			/*
-			//moving and removing the bullets fired from the turret
-			if(!bullets.isEmpty()){
-				for(Circle c : bullets.keySet()){
-					if(c.getCenterX() < -100 || c.getCenterX() > 1200){
-						p.getChildren().remove(c);
-						System.out.println("bullet removed.");
-						bullets.remove(c);
-					}else{
-						c.setCenterX(c.getCenterX() + (bulletSpeed * Math.cos(bullets.get(c))));
-					}
-				}
-			}*/
 			Iterator<Circle> bulletIterator = bullets.iterator();
 			while(bulletIterator.hasNext()){
 				Circle bullet = bulletIterator.next();
@@ -102,8 +84,7 @@ public class Turret {
 					bulletIterator.remove();
 				}else{
 					bullet.setCenterX(bullet.getCenterX() + (bulletSpeed * Math.cos(0.0)));
-					
-					//System.out.println("bullet x: " + bullet.getCenterX() + ", bullet y: " + bullet.getCenterY());
+					bullet.setOpacity(bullet.getOpacity() + .01);
 				}
 			}
 		}		
@@ -114,5 +95,11 @@ public class Turret {
 	}
 	public Iterator<Circle> getBulletIterator(){
 		return bullets.iterator();
+	}
+	public void subtractFromTurretHealth(int amountToSubtract){
+		this.turretHealth = turretHealth - amountToSubtract;
+	}
+	public int getTurretHealth(){
+		return this.turretHealth;
 	}
 }

@@ -79,12 +79,13 @@ private double mouseX,mouseY;
 					if(timeKeeper < 500){
 						doCountDown(timeKeeper);
 					}else{
-						missile.animateMissile(gameScreenLayout, explosion, turret.getBulletIterator());
+						missile.bulletMissileCollisionListener(turret.getBulletIterator(),gameScreenLayout, explosion);
+						missile.animateMissile(gameScreenLayout, explosion, turret.getBulletIterator(),turret);
 						//missile1.animateMissile(gameScreenLayout, explosion1);
 						//missile2.animateMissile(gameScreenLayout, explosion2);
 						//missile3.animateMissile(gameScreenLayout, explosion3);
 						//missile4.animateMissile(gameScreenLayout, explosion4);
-						missile.bulletMissileCollision(turret.getBulletIterator(),gameScreenLayout, explosion);
+						
 						//missile1.bulletMissileCollision(turret.getBulletIterator());
 						//missile2.bulletMissileCollision(turret.getBulletIterator());
 						//missile3.bulletMissileCollision(turret.getBulletIterator());
