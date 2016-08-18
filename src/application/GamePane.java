@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 
 public class GamePane {
@@ -53,19 +52,19 @@ private double mouseX,mouseY;
 	public void startGame(){
 		
 		Explosion explosion = new Explosion();
-		//Explosion explosion1 = new Explosion();
+		Explosion explosion1 = new Explosion();
 		//Explosion explosion2 = new Explosion();
 		//Explosion explosion3 = new Explosion();
 		//Explosion explosion4 = new Explosion();
 		
 		Missile missile = new Missile(2,700,500);
-		//Missile missile1 = new Missile(3,700,500);
+		Missile missile1 = new Missile(3,700,500);
 		//Missile missile2 = new Missile(2,700,500);
 		//Missile missile3 = new Missile(3,700,500);
 		//Missile missile4 = new Missile(2,700,500);
 		
 		addMissileToPane(missile);
-		//addMissileToPane(missile1);
+		addMissileToPane(missile1);
 		//addMissileToPane(missile2);
 		//addMissileToPane(missile3);
 		//addMissileToPane(missile4);
@@ -79,8 +78,9 @@ private double mouseX,mouseY;
 						doCountDown(timeKeeper);
 					}else{
 						missile.bulletMissileCollisionListener(turret.getBulletIterator(),gameScreenLayout, explosion);
+						missile1.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout, explosion1);
 						missile.animateMissile(gameScreenLayout, explosion, turret.getBulletIterator(),turret);
-						//missile1.animateMissile(gameScreenLayout, explosion1);
+						missile1.animateMissile(gameScreenLayout, explosion1, turret.getBulletIterator(), turret);
 						//missile2.animateMissile(gameScreenLayout, explosion2);
 						//missile3.animateMissile(gameScreenLayout, explosion3);
 						//missile4.animateMissile(gameScreenLayout, explosion4);
@@ -94,6 +94,10 @@ private double mouseX,mouseY;
 				turret.turretRecoil(getGameScreenLayout(),timeKeeper);
 				turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY);
 				turret.updateHealth();
+				if(turret.getTurretHealth() == 0){
+					addGameOverTextToScreen();
+					this.stop();
+				}
 				timeKeeper++;
 			}
 			
@@ -133,6 +137,14 @@ private double mouseX,mouseY;
 			}			
 		}
 	}
+	
+	private void addGameOverTextToScreen(){
+		Label gameOverLabel = new Label("GAME OVER!");
+		gameOverLabel.setLayoutX(30);
+		gameOverLabel.setLayoutY(30);
+		gameScreenLayout.getChildren().add(gameOverLabel);
+	}
+	
 	private void addTurretToGamePane(Turret t){
 		gameScreenLayout.getChildren().addAll(t.barrel,t.barrelEnd,t.base,t.baseDome, t.turretHealthBar);
 	}
