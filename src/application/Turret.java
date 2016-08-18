@@ -13,7 +13,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 public class Turret {
-	public Rectangle base, barrel, barrelEnd;
+	public Rectangle base, barrel, barrelEnd, turretHealthBar;
 	public Arc baseDome;
 	private double barrelAngle = 0;
 	private Rotate barrelRotation;
@@ -21,14 +21,21 @@ public class Turret {
 	private Set<Circle> bullets = new HashSet<Circle>();
 	private int timeShot;
 	private int turretHealth = 100;
+	
+	
+	/**
+	 * Constructor
+	 */
 	public Turret(){
 		base = new Rectangle(330,460, 40, 20);
 		baseDome = new Arc(base.getX() + (base.getWidth() / 2),base.getY(),40,40, 0, 180);
 		barrel = new Rectangle(base.getX() + (base.getWidth() / 2) + 30, base.getY() - 15,80,10);
-		barrelEnd = new Rectangle(barrel.getX() + barrel.getWidth(), barrel.getY() - 5,20,20);	
+		barrelEnd = new Rectangle(barrel.getX() + barrel.getWidth(), barrel.getY() - 5,20,20);
+		turretHealthBar = new Rectangle(50,40,100,10);
 		base.setFill(Paint.valueOf("grey"));
 		barrelEnd.setFill(Paint.valueOf("grey"));
 		baseDome.setFill(Paint.valueOf("grey"));
+		turretHealthBar.setFill(Paint.valueOf("red"));
 	}
 	
 	public void rotateTurret(double mousePositionX, double mousePositionY){
@@ -88,6 +95,10 @@ public class Turret {
 				}
 			}
 		}		
+	}
+	
+	public void updateHealth(){
+		turretHealthBar.setWidth(getTurretHealth());
 	}
 	
 	public void setTimeShot(int t){

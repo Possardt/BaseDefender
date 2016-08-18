@@ -29,13 +29,12 @@ private double mouseX,mouseY;
 		Rectangle bottom = new Rectangle(0,480,700,20);
 		gameScreenLayout.getChildren().addAll(bottom, gameLabel,countDown);
 		addTurretToGamePane(turret);
-		turret.barrel.getTransforms().add(new Rotate(230, turret.barrel.getX() - 5,turret.barrel.getY()));
+		//turret.barrel.getTransforms().add(new Rotate(230, turret.barrel.getX() - 5,turret.barrel.getY()));
 		gameScreenLayout.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent mouseEvent){
 				mouseX = mouseEvent.getX();
 				mouseY = mouseEvent.getY();
-				//System.out.println("mouse X: " + mouseX + ", mouse y: " + mouseY);
 			}
 		});
 		gameScreenLayout.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
@@ -94,6 +93,7 @@ private double mouseX,mouseY;
 				turret.rotateTurret(mouseX, mouseY);
 				turret.turretRecoil(getGameScreenLayout(),timeKeeper);
 				turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY);
+				turret.updateHealth();
 				timeKeeper++;
 			}
 			
@@ -134,7 +134,7 @@ private double mouseX,mouseY;
 		}
 	}
 	private void addTurretToGamePane(Turret t){
-		gameScreenLayout.getChildren().addAll(t.barrel,t.barrelEnd,t.base,t.baseDome);
+		gameScreenLayout.getChildren().addAll(t.barrel,t.barrelEnd,t.base,t.baseDome, t.turretHealthBar);
 	}
 	private void addMissileToPane(Missile m){
 		gameScreenLayout.getChildren().addAll(m.missile, m.tip, m.outerFire, m.innerFire, m.blade1, m.blade2);
