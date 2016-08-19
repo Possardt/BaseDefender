@@ -21,4 +21,7 @@
 	-fx-font-size: 26px;
 	
 }
+.label#healthLabel{
+	-fx-font-size:15px;
+}
 

@@ -13,20 +13,24 @@ private int timeKeeper;
 private Pane gameScreenLayout;
 private AnimationTimer gameTimer;
 public static boolean isGameStarted;	
-private Label gameLabel, countDown;
+private Label gameLabel, countDown, healthLabel;
 private Turret turret;	
 private double mouseX,mouseY;
 	public GamePane(Stage window){
 		gameLabel = new Label("Defend the Base!");
 		countDown = new Label("3");
+		healthLabel = new Label("Health:");
 		gameLabel.setLayoutX(180);
 		gameLabel.setLayoutY(40);
 		countDown.setLayoutX(340);
 		countDown.setLayoutY(100);
+		healthLabel.setLayoutX(30);
+		healthLabel.setLayoutY(20);
+		healthLabel.setId("healthLabel");
 		gameScreenLayout = new Pane();
 		turret = new Turret();
 		Rectangle bottom = new Rectangle(0,480,700,20);
-		gameScreenLayout.getChildren().addAll(bottom, gameLabel,countDown);
+		gameScreenLayout.getChildren().addAll(bottom, gameLabel,countDown,healthLabel);
 		addTurretToGamePane(turret);
 		//turret.barrel.getTransforms().add(new Rotate(230, turret.barrel.getX() - 5,turret.barrel.getY()));
 		gameScreenLayout.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>(){
@@ -140,6 +144,7 @@ private double mouseX,mouseY;
 	
 	private void addGameOverTextToScreen(){
 		Label gameOverLabel = new Label("GAME OVER!");
+		gameOverLabel.setId("gameOverLabel");
 		gameOverLabel.setLayoutX(30);
 		gameOverLabel.setLayoutY(30);
 		gameScreenLayout.getChildren().add(gameOverLabel);
