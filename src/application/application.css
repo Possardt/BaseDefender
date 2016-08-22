@@ -21,7 +21,7 @@
 	-fx-font-size: 26px;
 	
 }
-.label#healthLabel{
+.label#healthLabel, .label#scoreLabel{
 	-fx-font-size:15px;
 }
 
