@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 public class MainMenuPane {
 	private Pane homeScreenLayout;
-	
+	private AnimationTimer mainMenuAnimator;
 	//default constructor builds screen
 	public MainMenuPane(Stage window, Scene gameScene, GamePane gamePane){
 		Label homeLabel1 = new Label("Base");
@@ -61,7 +61,7 @@ public class MainMenuPane {
 		city.setSmooth(true);
 		city.setCache(true);
 		city.setY(240);
-		AnimationTimer animator = new AnimationTimer(){
+		mainMenuAnimator = new AnimationTimer(){
             @Override
             public void handle(long arg0) {
 
@@ -76,16 +76,21 @@ public class MainMenuPane {
                
             }      
         };
-        toGameBtn.setOnAction(e -> toGame(window, gameScene, animator, gamePane));
+        toGameBtn.setOnAction(e -> toGame(window, gameScene, mainMenuAnimator, gamePane));
         city.toFront();
 		homeScreenLayout.getChildren().addAll(toGameBtn, highScoresBtn, exitBtn, homeLabel1, homeLabel2, city);
-		animator.start();
+		mainMenuAnimator.start();
 		
 	}
 	
 	public Pane getMenuPane(){
 		return homeScreenLayout;
 	}
+	
+	public void startMainMenuAnimator(){
+		mainMenuAnimator.start();
+	}
+	
 	public void toGame(Stage window, Scene scene, AnimationTimer animator, GamePane gamepane){
 		window.setScene(scene);
 		animator.stop();

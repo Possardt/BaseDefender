@@ -24,9 +24,12 @@ public class Main extends Application {
 		mainMenuScene = new Scene(mmp.getMenuPane(), 200,300, Color.GAINSBORO);
 		mainMenuScene.getStylesheets().add("/application/application.css");
 		
+		//need this to return to main menu after game over
+		gp.setMainMenuScene(mainMenuScene);
+		gp.setMainMenuPane(mmp);
 		
 		window.setScene(mainMenuScene);
-		window.setTitle("BD V1.0");
+		window.setTitle("BD V1.1");
 		window.setResizable(false);
 		window.show();
 		

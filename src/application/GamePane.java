@@ -2,6 +2,8 @@ package application;
 
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -11,32 +13,18 @@ import javafx.stage.Stage;
 public class GamePane {
 private int timeKeeper;
 private Pane gameScreenLayout;
+private MainMenuPane mainMenuPane;
 private AnimationTimer gameTimer;
 public static boolean isGameStarted;	
 private Label gameLabel, countDown, healthLabel,scoreLabel, currentScoreLabel;
 private Turret turret;
 private int gameScore = 0;
+private Scene mainMenuScene;
 private double mouseX,mouseY;
+private Stage applicationWindow;
 	public GamePane(Stage window){
-		gameLabel = new Label("Defend the Base!");
-		countDown = new Label("3");
-		healthLabel = new Label("Health:");
-		scoreLabel = new Label("Score:");
-		currentScoreLabel = new Label(Integer.toString(gameScore));
-		gameLabel.setLayoutX(180);
-		gameLabel.setLayoutY(40);
-		countDown.setLayoutX(340);
-		countDown.setLayoutY(100);
-		healthLabel.setLayoutX(30);
-		healthLabel.setLayoutY(20);
-		healthLabel.setId("healthLabel");
-		scoreLabel.setLayoutX(500);
-		scoreLabel.setLayoutY(20);
-		scoreLabel.setId("scoreLabel");
-		currentScoreLabel.setLayoutX(600);
-		currentScoreLabel.setLayoutY(20);
-		currentScoreLabel.setId("currentScoreLabel");
-		
+		applicationWindow = window;
+		instantiateGamePaneLabels();
 		gameScreenLayout = new Pane();
 		turret = new Turret();
 		Rectangle bottom = new Rectangle(0,480,700,20);
@@ -110,7 +98,7 @@ private double mouseX,mouseY;
 				turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY);
 				turret.updateHealth();
 				if(turret.getTurretHealth() == 0){
-					addGameOverTextToScreen();
+					gameOver();
 					this.stop();
 				}
 				timeKeeper++;				
@@ -158,6 +146,12 @@ private double mouseX,mouseY;
 		currentScoreLabel.setText(Integer.toString(gameScore));
 	}
 	
+	private void gameOver(){
+		addGameOverTextToScreen();
+		addExitAndReturnToHomeButtons();
+		isGameStarted = false;
+		mainMenuPane.startMainMenuAnimator();		
+	}
 	
 	private void addGameOverTextToScreen(){
 		Label gameOverLabel = new Label("GAME OVER!");
@@ -165,14 +159,56 @@ private double mouseX,mouseY;
 		gameOverLabel.setLayoutX(30);
 		gameOverLabel.setLayoutY(30);
 		gameScreenLayout.getChildren().add(gameOverLabel);
+		
 	}
 	
 	
+	private void instantiateGamePaneLabels(){
+		gameLabel = new Label("Defend the Base!");
+		countDown = new Label("3");
+		healthLabel = new Label("Health:");
+		scoreLabel = new Label("Score:");
+		currentScoreLabel = new Label(Integer.toString(gameScore));
+		gameLabel.setLayoutX(180);
+		gameLabel.setLayoutY(40);
+		countDown.setLayoutX(340);
+		countDown.setLayoutY(100);
+		healthLabel.setLayoutX(30);
+		healthLabel.setLayoutY(20);
+		healthLabel.setId("healthLabel");
+		scoreLabel.setLayoutX(500);
+		scoreLabel.setLayoutY(20);
+		scoreLabel.setId("scoreLabel");
+		currentScoreLabel.setLayoutX(600);
+		currentScoreLabel.setLayoutY(20);
+		currentScoreLabel.setId("currentScoreLabel");
+		
+	}
+	
+	private void addExitAndReturnToHomeButtons(){
+		Button returnToMainMenuButton = new Button();
+		Button exitGameButton = new Button();
+		exitGameButton.setText("exit");
+		returnToMainMenuButton.setText("Main Menu");
+		returnToMainMenuButton.setLayoutX(340);
+		returnToMainMenuButton.setLayoutY(120);
+		exitGameButton.setLayoutX(340);
+		exitGameButton.setLayoutY(160);
+		exitGameButton.setOnAction(e -> applicationWindow.close());
+		returnToMainMenuButton.setOnAction(e -> applicationWindow.setScene(mainMenuScene));
+		gameScreenLayout.getChildren().addAll(returnToMainMenuButton, exitGameButton);
+	}
 	
 	private void addTurretToGamePane(Turret t){
 		gameScreenLayout.getChildren().addAll(t.barrel,t.barrelEnd,t.base,t.baseDome, t.turretHealthBar);
 	}
 	private void addMissileToPane(Missile m){
 		gameScreenLayout.getChildren().addAll(m.missile, m.tip, m.outerFire, m.innerFire, m.blade1, m.blade2);
+	}
+	public void setMainMenuScene(Scene mainMenu){
+		this.mainMenuScene = mainMenu;
+	}
+	public void setMainMenuPane(MainMenuPane mainMenuPane){
+		this.mainMenuPane = mainMenuPane;
 	}
 }
