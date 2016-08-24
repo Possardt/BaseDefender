@@ -70,7 +70,7 @@ private Stage applicationWindow;
 		//addMissileToPane(missile2);
 		//addMissileToPane(missile3);
 		//addMissileToPane(missile4);
-		
+		resetGameValues();
 		if(isGameStarted)
 			System.out.println("game timer started");
 			gameTimer = new AnimationTimer(){
@@ -91,7 +91,7 @@ private Stage applicationWindow;
 						//missile2.bulletMissileCollision(turret.getBulletIterator());
 						//missile3.bulletMissileCollision(turret.getBulletIterator());
 						//missile4.bulletMissileCollision(turret.getBulletIterator());
-						gameScore++;
+						iterateGameScore(timeKeeper);
 					}
 				turret.rotateTurret(mouseX, mouseY);
 				turret.turretRecoil(getGameScreenLayout(),timeKeeper);
@@ -144,6 +144,12 @@ private Stage applicationWindow;
 	
 	private void updateGameScore(){
 		currentScoreLabel.setText(Integer.toString(gameScore));
+	}
+	
+	private void iterateGameScore(int time){
+		if(time %10 == 0){
+			gameScore++;
+		}
 	}
 	
 	private void gameOver(){
@@ -210,5 +216,11 @@ private Stage applicationWindow;
 	}
 	public void setMainMenuPane(MainMenuPane mainMenuPane){
 		this.mainMenuPane = mainMenuPane;
+	}
+	
+	private void resetGameValues(){
+		gameScore = 0;
+		timeKeeper = 0;
+		turret.setTurretHealth(100);
 	}
 }

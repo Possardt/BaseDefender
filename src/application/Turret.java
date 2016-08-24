@@ -17,7 +17,7 @@ public class Turret {
 	public Arc baseDome;
 	private double barrelAngle = 0;
 	private Rotate barrelRotation;
-	private int bulletSpeed = 3;
+	private int bulletSpeed = 6;
 	private Set<Circle> bullets = new HashSet<Circle>();
 	private int timeShot;
 	private int turretHealth = 100;
@@ -112,5 +112,10 @@ public class Turret {
 	}
 	public int getTurretHealth(){
 		return this.turretHealth;
+	}
+	
+	public void setTurretHealth(int health){
+		this.turretHealth = health;
+		updateHealth();
 	}
 }
