@@ -146,7 +146,7 @@ public class Missile {
 	
 	public boolean bulletFloorCollision(Turret t){
 		if(missile.getY() + 30 > screenHeight){
-			t.subtractFromTurretHealth(5);
+			t.subtractFromTurretHealth(50);
 			System.out.println(t.getTurretHealth());
 			return true;
 		}

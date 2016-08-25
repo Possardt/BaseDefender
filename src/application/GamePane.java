@@ -1,5 +1,8 @@
 package application;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javafx.animation.AnimationTimer;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -16,12 +19,14 @@ private Pane gameScreenLayout;
 private MainMenuPane mainMenuPane;
 private AnimationTimer gameTimer;
 public static boolean isGameStarted;	
-private Label gameLabel, countDown, healthLabel,scoreLabel, currentScoreLabel;
+private Label gameLabel, countDown, healthLabel,scoreLabel, currentScoreLabel, gameOverLabel;
 private Turret turret;
 private int gameScore = 0;
 private Scene mainMenuScene;
 private double mouseX,mouseY;
 private Stage applicationWindow;
+private Button returnToMainMenuButton, exitGameButton;
+private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 	public GamePane(Stage window){
 		applicationWindow = window;
 		instantiateGamePaneLabels();
@@ -70,6 +75,9 @@ private Stage applicationWindow;
 		//addMissileToPane(missile2);
 		//addMissileToPane(missile3);
 		//addMissileToPane(missile4);
+		missileContainer.add(missile);
+		missileContainer.add(missile1);
+		
 		resetGameValues();
 		if(isGameStarted)
 			System.out.println("game timer started");
@@ -146,6 +154,11 @@ private Stage applicationWindow;
 		currentScoreLabel.setText(Integer.toString(gameScore));
 	}
 	
+	//for other calsses to iterate game score
+	public void addToGameScore(int amountToAdd){
+		this.gameScore = gameScore + amountToAdd;
+	}
+	
 	private void iterateGameScore(int time){
 		if(time %10 == 0){
 			gameScore++;
@@ -156,11 +169,12 @@ private Stage applicationWindow;
 		addGameOverTextToScreen();
 		addExitAndReturnToHomeButtons();
 		isGameStarted = false;
+		
 		mainMenuPane.startMainMenuAnimator();		
 	}
 	
 	private void addGameOverTextToScreen(){
-		Label gameOverLabel = new Label("GAME OVER!");
+		gameOverLabel = new Label("GAME OVER!");
 		gameOverLabel.setId("gameOverLabel");
 		gameOverLabel.setLayoutX(30);
 		gameOverLabel.setLayoutY(30);
@@ -192,8 +206,8 @@ private Stage applicationWindow;
 	}
 	
 	private void addExitAndReturnToHomeButtons(){
-		Button returnToMainMenuButton = new Button();
-		Button exitGameButton = new Button();
+		returnToMainMenuButton = new Button();
+		exitGameButton = new Button();
 		exitGameButton.setText("exit");
 		returnToMainMenuButton.setText("Main Menu");
 		returnToMainMenuButton.setLayoutX(340);
@@ -201,7 +215,7 @@ private Stage applicationWindow;
 		exitGameButton.setLayoutX(340);
 		exitGameButton.setLayoutY(160);
 		exitGameButton.setOnAction(e -> applicationWindow.close());
-		returnToMainMenuButton.setOnAction(e -> applicationWindow.setScene(mainMenuScene));
+		returnToMainMenuButton.setOnAction(e -> returnToMainMenuScreenMethod());
 		gameScreenLayout.getChildren().addAll(returnToMainMenuButton, exitGameButton);
 	}
 	
@@ -223,4 +237,42 @@ private Stage applicationWindow;
 		timeKeeper = 0;
 		turret.setTurretHealth(100);
 	}
+	
+	private void returnToMainMenuScreenMethod(){
+		//cleanup method needed
+		cleanup();
+		applicationWindow.setScene(mainMenuScene);
+	}
+	
+	private void cleanup(){
+		gameScreenLayout.getChildren().remove(returnToMainMenuButton);
+		gameScreenLayout.getChildren().remove(exitGameButton);
+		gameScreenLayout.getChildren().remove(gameOverLabel);
+		removeMissilesFromScreen();
+		removeTurretFromScreen();
+	}
+	
+	private void removeMissilesFromScreen(){
+		for(Missile m : missileContainer){
+			gameScreenLayout.getChildren().remove(m.blade1);
+			gameScreenLayout.getChildren().remove(m.blade2);
+			gameScreenLayout.getChildren().remove(m.innerFire);
+			gameScreenLayout.getChildren().remove(m.missile);
+			gameScreenLayout.getChildren().remove(m.outerFire);
+			gameScreenLayout.getChildren().remove(m.circle);
+			gameScreenLayout.getChildren().remove(m.tip);
+		}
+		missileContainer.clear();
+	}
+	private void removeTurretFromScreen(){
+		gameScreenLayout.getChildren().remove(turret.barrel);
+		gameScreenLayout.getChildren().remove(turret.barrelEnd);
+		gameScreenLayout.getChildren().remove(turret.base);
+		gameScreenLayout.getChildren().remove(turret.baseDome);
+		turret = new Turret();
+		addTurretToGamePane(turret);
+	}
+	
+	
+	
 }
