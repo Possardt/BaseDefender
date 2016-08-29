@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -249,6 +250,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		gameScreenLayout.getChildren().remove(exitGameButton);
 		gameScreenLayout.getChildren().remove(gameOverLabel);
 		removeMissilesFromScreen();
+		removeBulletsFromScreen();
 		removeTurretFromScreen();
 	}
 	
@@ -263,6 +265,14 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 			gameScreenLayout.getChildren().remove(m.tip);
 		}
 		missileContainer.clear();
+	}
+	private void removeBulletsFromScreen(){
+		Iterator<Circle> bulletIterator = turret.getBulletIterator();
+		while(bulletIterator.hasNext()){
+			Circle bullet = bulletIterator.next();
+			gameScreenLayout.getChildren().remove(bullet);
+			bulletIterator.remove();
+		}
 	}
 	private void removeTurretFromScreen(){
 		gameScreenLayout.getChildren().remove(turret.barrel);
