@@ -139,7 +139,7 @@ public class Missile {
 	//Collision detections
 	
 	public boolean missileBottomCollisionHomeScreen(){
-		if(missile.getY() + 30 > screenHeight)
+		if(missile.getY() + 10 > screenHeight)
 			return true;
 		return false;
 	}

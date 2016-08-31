@@ -24,4 +24,7 @@
 .label#healthLabel, .label#scoreLabel{
 	-fx-font-size:15px;
 }
+.label#baseDefenderLabel{
+	-fx-font-size:50px;
+}
 

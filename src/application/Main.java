@@ -20,8 +20,10 @@ public class Main extends Application {
 		gameScene.getStylesheets().add("/application/application.css");
 		
 		MainMenuPane mmp = new MainMenuPane(window, gameScene, gp);
-		mainMenuScene = new Scene(mmp.getMenuPane(), 200,300, Color.GAINSBORO);
+		mainMenuScene = new Scene(mmp.getMenuPane(), 700,500, Color.GAINSBORO);
 		mainMenuScene.getStylesheets().add("/application/application.css");
+		
+		
 		
 		//need this to return to main menu after game over
 		gp.setMainMenuScene(mainMenuScene);

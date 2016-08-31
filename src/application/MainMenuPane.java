@@ -14,23 +14,21 @@ public class MainMenuPane {
 	private AnimationTimer mainMenuAnimator;
 	//default constructor builds screen
 	public MainMenuPane(Stage window, Scene gameScene, GamePane gamePane){
-		Label homeLabel1 = new Label("Base");
-		Label homeLabel2 = new Label("Defender");
+		Label baseDefenderLabel = new Label("BaseDefender");
+		baseDefenderLabel.setId("baseDefenderLabel");
 		Button toGameBtn = new Button("Play");
 		Button highScoresBtn = new Button("High Scores");
 		Button exitBtn = new Button("Exit");
 		exitBtn.setOnAction(e -> window.close());
 		
-		toGameBtn.setLayoutX(50);
-		toGameBtn.setLayoutY(90);
-		highScoresBtn.setLayoutX(5);
-		highScoresBtn.setLayoutY(120);
-		exitBtn.setLayoutX(50);
-		exitBtn.setLayoutY(150);
-		homeLabel1.setLayoutX(55);
-		homeLabel1.setLayoutY(30);
-		homeLabel2.setLayoutX(10);
-		homeLabel2.setLayoutY(55);
+		toGameBtn.setLayoutX(300);
+		toGameBtn.setLayoutY(150);
+		highScoresBtn.setLayoutX(250);
+		highScoresBtn.setLayoutY(180);
+		exitBtn.setLayoutX(300);
+		exitBtn.setLayoutY(210);
+		baseDefenderLabel.setLayoutX(100);
+		baseDefenderLabel.setLayoutY(80);
 		//Layout for home screen
 		homeScreenLayout = new Pane();
 		
@@ -40,11 +38,11 @@ public class MainMenuPane {
 		Explosion explosion3 = new Explosion();
 		Explosion explosion4 = new Explosion();
 		
-		Missile missile = new Missile(2,200,300);
-		Missile missile1 = new Missile(3,200,300);
-		Missile missile2 = new Missile(2,200,300);
-		Missile missile3 = new Missile(3,200,300);
-		Missile missile4 = new Missile(2,200,300);
+		Missile missile = new Missile(2, 700, 500);
+		Missile missile1 = new Missile(3, 700, 500);
+		Missile missile2 = new Missile(2, 700, 500);
+		Missile missile3 = new Missile(3, 700, 500);
+		Missile missile4 = new Missile(2, 700, 500);
 		
 		addMissileToPane(missile);
 		addMissileToPane(missile1);
@@ -56,11 +54,12 @@ public class MainMenuPane {
 		Image citySilhouette = new Image("/resources/Cityscape.png");
 		ImageView city = new ImageView(citySilhouette);
 		city.setImage(citySilhouette);
-		city.setFitWidth(220);
-		city.setPreserveRatio(true);
+		city.setFitWidth(740);
+		city.setFitHeight(100);
+		//city.setPreserveRatio(true);
 		city.setSmooth(true);
 		city.setCache(true);
-		city.setY(240);
+		city.setY(400);
 		mainMenuAnimator = new AnimationTimer(){
             @Override
             public void handle(long arg0) {
@@ -78,7 +77,7 @@ public class MainMenuPane {
         };
         toGameBtn.setOnAction(e -> toGame(window, gameScene, mainMenuAnimator, gamePane));
         city.toFront();
-		homeScreenLayout.getChildren().addAll(toGameBtn, highScoresBtn, exitBtn, homeLabel1, homeLabel2, city);
+		homeScreenLayout.getChildren().addAll(toGameBtn, highScoresBtn, exitBtn, baseDefenderLabel, city);
 		mainMenuAnimator.start();
 		
 	}
