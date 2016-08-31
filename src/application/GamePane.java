@@ -106,7 +106,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 				turret.turretRecoil(getGameScreenLayout(),timeKeeper);
 				turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY);
 				turret.updateHealth();
-				if(turret.getTurretHealth() == 0){
+				if(turret.getTurretHealth() <= 0){
 					gameOver();
 					this.stop();
 				}

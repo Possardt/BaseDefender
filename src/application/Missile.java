@@ -81,7 +81,7 @@ public class Missile {
      	   }else
      		   setExplodeTime(getExplodeTime() + 1);
         }else{
-     	   if(!(bulletMissileCollisionBool || bulletFloorCollision(turret))){
+     	   if(!(bulletMissileCollisionBool || missileFloorCollisionInGame(turret) || turretMissileCollision(turret))){
      		   moveMissile();
      	   }else{
      		   setExplodeLocationY(missile.getY());
@@ -107,9 +107,9 @@ public class Missile {
 	     	   }else
 	     		   setExplodeTime(getExplodeTime() + 1);
 	        }else{
-	     	   if(!missileBottomCollision())
+	     	   if(!missileBottomCollisionHomeScreen())
 	     		   moveMissile();
-	     	   if(missileBottomCollision()){
+	     	   else{
 	     		   setExplodeLocationX(missile.getX());  
 	     		   setExplodeLocationY(missile.getY());
 	     		   missile.setX(Math.random() * screenWidth);
@@ -138,13 +138,13 @@ public class Missile {
 	
 	//Collision detections
 	
-	public boolean missileBottomCollision(){
+	public boolean missileBottomCollisionHomeScreen(){
 		if(missile.getY() + 30 > screenHeight)
 			return true;
 		return false;
 	}
 	
-	public boolean bulletFloorCollision(Turret t){
+	public boolean missileFloorCollisionInGame(Turret t){
 		if(missile.getY() + 30 > screenHeight){
 			t.subtractFromTurretHealth(50);
 			System.out.println(t.getTurretHealth());
@@ -168,6 +168,17 @@ public class Missile {
 					break;
 				}
 			}
+		}
+	}
+	
+	public boolean turretMissileCollision(Turret turret){
+		if(turret.barrelEnd.getBoundsInParent().intersects(missile.getBoundsInParent()) || 
+				turret.barrel.getBoundsInParent().intersects(missile.getBoundsInParent()) || 
+					turret.baseDome.getBoundsInParent().intersects(missile.getBoundsInParent())){
+			turret.subtractFromTurretHealth(10);
+			return true;
+		}else{
+			return false;
 		}
 	}
 	

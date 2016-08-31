@@ -12,7 +12,6 @@ public class Main extends Application {
 	Scene mainMenuScene, gameScene;
 	@Override
 	public void start(Stage primaryStage) {
-
 		window = primaryStage;
 		GamePane.isGameStarted = false;
 
