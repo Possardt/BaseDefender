@@ -80,6 +80,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		missileContainer.add(missile1);
 		
 		resetGameValues();
+		//no brackets after this if statement? it does nothing.
 		if(isGameStarted)
 			System.out.println("game timer started");
 			gameTimer = new AnimationTimer(){
@@ -137,6 +138,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 			countDown.setOpacity(countDown.getOpacity() - .01);
 			if(tKeeper == 299){
 				countDown.setText("GO!");
+				countDown.setLayoutX(320);
 				countDown.setOpacity(1);
 			}
 		}else if(tKeeper < 400){
@@ -169,6 +171,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 	private void gameOver(){
 		addGameOverTextToScreen();
 		addExitAndReturnToHomeButtons();
+		removeGameLabels();
 		isGameStarted = false;
 		
 		mainMenuPane.startMainMenuAnimator();		
@@ -191,7 +194,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		scoreLabel = new Label("Score:");
 		currentScoreLabel = new Label(Integer.toString(gameScore));
 		gameLabel.setLayoutX(180);
-		gameLabel.setLayoutY(40);
+		gameLabel.setLayoutY(70);
 		countDown.setLayoutX(340);
 		countDown.setLayoutY(100);
 		healthLabel.setLayoutX(30);
@@ -220,6 +223,10 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		gameScreenLayout.getChildren().addAll(returnToMainMenuButton, exitGameButton);
 	}
 	
+	private void removeGameLabels(){
+		gameScreenLayout.getChildren().remove(healthLabel);
+	}
+	
 	private void addTurretToGamePane(Turret t){
 		gameScreenLayout.getChildren().addAll(t.barrel,t.barrelEnd,t.base,t.baseDome, t.turretHealthBar);
 	}
@@ -240,7 +247,6 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 	}
 	
 	private void returnToMainMenuScreenMethod(){
-		//cleanup method needed
 		cleanup();
 		applicationWindow.setScene(mainMenuScene);
 	}
@@ -254,6 +260,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		countDown.setOpacity(1);
 		gameScreenLayout.getChildren().add(gameLabel);
 		gameScreenLayout.getChildren().add(countDown);
+		gameScreenLayout.getChildren().add(healthLabel);
 		removeMissilesFromScreen();
 		removeBulletsFromScreen();
 		removeTurretFromScreen();
