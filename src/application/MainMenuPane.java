@@ -13,13 +13,14 @@ public class MainMenuPane {
 	private Pane homeScreenLayout;
 	private AnimationTimer mainMenuAnimator;
 	//default constructor builds screen
-	public MainMenuPane(Stage window, Scene gameScene, GamePane gamePane){
+	public MainMenuPane(Stage window, Scene gameScene, GamePane gamePane, Scene highScoreScene){
 		Label baseDefenderLabel = new Label("BaseDefender");
 		baseDefenderLabel.setId("baseDefenderLabel");
 		Button toGameBtn = new Button("Play");
 		Button highScoresBtn = new Button("High Scores");
 		Button exitBtn = new Button("Exit");
 		exitBtn.setOnAction(e -> window.close());
+
 		
 		toGameBtn.setLayoutX(300);
 		toGameBtn.setLayoutY(150);
@@ -76,6 +77,7 @@ public class MainMenuPane {
             }      
         };
         toGameBtn.setOnAction(e -> toGame(window, gameScene, mainMenuAnimator, gamePane));
+		highScoresBtn.setOnAction(e -> toHighScoreScreen(window, highScoreScene, mainMenuAnimator));
         city.toFront();
 		homeScreenLayout.getChildren().addAll(toGameBtn, highScoresBtn, exitBtn, baseDefenderLabel, city);
 		mainMenuAnimator.start();
@@ -95,6 +97,11 @@ public class MainMenuPane {
 		animator.stop();
 		GamePane.isGameStarted = true;
 		gamepane.startGame();
+	}
+	
+	public void toHighScoreScreen(Stage window, Scene scene, AnimationTimer animator){
+		window.setScene(scene);
+		animator.stop();
 	}
 	
 	private void addMissileToPane(Missile m){

@@ -9,7 +9,7 @@ import javafx.scene.paint.Color;
 public class Main extends Application {
 
 	Stage window;
-	Scene mainMenuScene, gameScene;
+	Scene mainMenuScene, gameScene, highScoreScene;
 	@Override
 	public void start(Stage primaryStage) {
 		window = primaryStage;
@@ -19,7 +19,11 @@ public class Main extends Application {
 		gameScene = new Scene(gp.getGameScreenLayout(), 700,500, Color.GAINSBORO);
 		gameScene.getStylesheets().add("/application/application.css");
 		
-		MainMenuPane mmp = new MainMenuPane(window, gameScene, gp);
+		HighScorePane hsp = new HighScorePane(window);
+		highScoreScene = new Scene(hsp.getHighScorePane(), 700,500, Color.GAINSBORO);
+		highScoreScene.getStylesheets().add("/application/application.css");
+		
+		MainMenuPane mmp = new MainMenuPane(window, gameScene, gp, highScoreScene);
 		mainMenuScene = new Scene(mmp.getMenuPane(), 700,500, Color.GAINSBORO);
 		mainMenuScene.getStylesheets().add("/application/application.css");
 		
@@ -28,6 +32,10 @@ public class Main extends Application {
 		//need this to return to main menu after game over
 		gp.setMainMenuScene(mainMenuScene);
 		gp.setMainMenuPane(mmp);
+		//need this to return to main menu pane
+		hsp.setMainMenuScene(mainMenuScene);
+		hsp.setMainMenuPane(mmp);
+		
 		
 		window.setScene(mainMenuScene);
 		window.setTitle("BD V1.1");
