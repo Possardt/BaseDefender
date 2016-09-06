@@ -173,7 +173,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		addExitAndReturnToHomeButtons();
 		removeGameLabels();
 		isGameStarted = false;
-		
+		checkForHighScore();
 		mainMenuPane.startMainMenuAnimator();		
 	}
 	
@@ -186,6 +186,15 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		
 	}
 	
+	private void checkForHighScore(){
+		int worstHighScore = HighScore.getWorstHighScore();
+		if(this.gameScore < worstHighScore)
+			return;
+		else{
+			HighScore.addHighScore(gameScore);
+			System.out.println("High score!: " + gameScore);
+		}
+	}
 	
 	private void instantiateGamePaneLabels(){
 		gameLabel = new Label("Defend the Base!");

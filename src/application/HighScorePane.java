@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ArrayList;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +15,7 @@ public class HighScorePane {
 	private Button returnToMainScreenButton;
 	private Label highScoreLabel;
 	private Stage applicationWindow;
+	private ArrayList scores;
 	
 	public HighScorePane(Stage window){
 		this.applicationWindow = window;
@@ -26,9 +29,27 @@ public class HighScorePane {
 		returnToMainScreenButton.setLayoutY(20);
 		returnToMainScreenButton.setOnAction(e -> returnToMainMenu());
 		
+		addHighScoreLabels();
+		
 		//adding all to it
 		highScorePane.getChildren().addAll(highScoreLabel, returnToMainScreenButton);
 		
+	}
+	
+	private void addHighScoreLabels(){
+		int i = 1;
+		int labelX = 70;
+		int labelY = 90;
+		for(int score : HighScore.getHighScores()){
+			Label scoreListLabel = new Label(i + ".\t" + score);
+			scoreListLabel.setLayoutX(labelX);
+			scoreListLabel.setLayoutY(labelY);
+			highScorePane.getChildren().addAll(scoreListLabel);
+			labelY += 30;
+			i++;
+			if(i == 11)
+				break;
+		}
 	}
 	
 	private void returnToMainMenu(){
