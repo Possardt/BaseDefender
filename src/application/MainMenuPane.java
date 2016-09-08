@@ -13,7 +13,7 @@ public class MainMenuPane {
 	private Pane homeScreenLayout;
 	private AnimationTimer mainMenuAnimator;
 	//default constructor builds screen
-	public MainMenuPane(Stage window, Scene gameScene, GamePane gamePane, Scene highScoreScene){
+	public MainMenuPane(Stage window, Scene gameScene, GamePane gamePane, Scene highScoreScene, HighScorePane highScorePane){
 		Label baseDefenderLabel = new Label("BaseDefender");
 		baseDefenderLabel.setId("baseDefenderLabel");
 		Button toGameBtn = new Button("Play");
@@ -77,7 +77,7 @@ public class MainMenuPane {
             }      
         };
         toGameBtn.setOnAction(e -> toGame(window, gameScene, mainMenuAnimator, gamePane));
-		highScoresBtn.setOnAction(e -> toHighScoreScreen(window, highScoreScene, mainMenuAnimator));
+		highScoresBtn.setOnAction(e -> toHighScoreScreen(window, highScoreScene, mainMenuAnimator, highScorePane));
         city.toFront();
 		homeScreenLayout.getChildren().addAll(toGameBtn, highScoresBtn, exitBtn, baseDefenderLabel, city);
 		mainMenuAnimator.start();
@@ -99,8 +99,9 @@ public class MainMenuPane {
 		gamepane.startGame();
 	}
 	
-	public void toHighScoreScreen(Stage window, Scene scene, AnimationTimer animator){
+	public void toHighScoreScreen(Stage window, Scene scene, AnimationTimer animator, HighScorePane hsp){
 		window.setScene(scene);
+		hsp.addHighScoreLabels();
 		animator.stop();
 	}
 	

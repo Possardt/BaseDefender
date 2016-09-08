@@ -23,7 +23,7 @@ public class Main extends Application {
 		highScoreScene = new Scene(hsp.getHighScorePane(), 700,500, Color.GAINSBORO);
 		highScoreScene.getStylesheets().add("/application/application.css");
 		
-		MainMenuPane mmp = new MainMenuPane(window, gameScene, gp, highScoreScene);
+		MainMenuPane mmp = new MainMenuPane(window, gameScene, gp, highScoreScene, hsp);
 		mainMenuScene = new Scene(mmp.getMenuPane(), 700,500, Color.GAINSBORO);
 		mainMenuScene.getStylesheets().add("/application/application.css");
 		
@@ -35,6 +35,8 @@ public class Main extends Application {
 		//need this to return to main menu pane
 		hsp.setMainMenuScene(mainMenuScene);
 		hsp.setMainMenuPane(mmp);
+		//need this to get if there are existing high scores in high score screen
+		hsp.setHighScoreScene(highScoreScene);
 		
 		
 		window.setScene(mainMenuScene);

@@ -2,6 +2,8 @@ package application;
 
 import java.util.ArrayList;
 
+import com.sun.glass.ui.Window;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +18,7 @@ public class HighScorePane {
 	private Label highScoreLabel;
 	private Stage applicationWindow;
 	private ArrayList scores;
+	private Scene highScoreScene;
 	
 	public HighScorePane(Stage window){
 		this.applicationWindow = window;
@@ -29,14 +32,17 @@ public class HighScorePane {
 		returnToMainScreenButton.setLayoutY(20);
 		returnToMainScreenButton.setOnAction(e -> returnToMainMenu());
 		
-		addHighScoreLabels();
 		
 		//adding all to it
 		highScorePane.getChildren().addAll(highScoreLabel, returnToMainScreenButton);
 		
 	}
 	
-	private void addHighScoreLabels(){
+	public void addHighScoreLabels(){
+		//add: delete high score labels if they already exist
+		//need method to check if highScoreLabels exist(ie, page has
+		//been visited before)
+		deleteExistingHighScoreLabels();
 		int i = 1;
 		int labelX = 70;
 		int labelY = 90;
@@ -44,11 +50,20 @@ public class HighScorePane {
 			Label scoreListLabel = new Label(i + ".\t" + score);
 			scoreListLabel.setLayoutX(labelX);
 			scoreListLabel.setLayoutY(labelY);
+			scoreListLabel.setId("scoreListLabel");
 			highScorePane.getChildren().addAll(scoreListLabel);
 			labelY += 30;
 			i++;
 			if(i == 11)
 				break;
+		}
+	}
+	
+	private void deleteExistingHighScoreLabels(){
+		Label scoreListIdLabel = (Label) highScoreScene.lookup("#scoreListLabel");
+		while(scoreListIdLabel != null){
+			highScorePane.getChildren().remove(scoreListIdLabel);
+			scoreListIdLabel = (Label) highScoreScene.lookup("#scoreListLabel");
 		}
 	}
 	
@@ -66,5 +81,9 @@ public class HighScorePane {
 	}
 	public void setMainMenuScene(Scene s){
 		this.mainMenuScene = s;
+	}
+	
+	public void setHighScoreScene(Scene scene){
+		this.highScoreScene = scene;
 	}
 }

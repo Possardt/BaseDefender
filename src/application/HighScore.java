@@ -1,6 +1,8 @@
 package application;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,8 +29,23 @@ public final class HighScore {
 	
 	public static ArrayList<Integer> getHighScores(){
 		ArrayList<Integer> scores = new ArrayList<Integer>();
+		
+		try{
+			BufferedReader bufferedReader = new BufferedReader(new FileReader("HighScore.txt"));
+			String line = bufferedReader.readLine();
+			while(line != null){
+				scores.add(Integer.parseInt(line));
+				line = bufferedReader.readLine();
+			}
+			scores.sort(highToLowComparator);
+			bufferedReader.close();
+		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		/*
 		try {
-			Scanner scanner = new Scanner(HighScore.class.getResourceAsStream("/resources/HighScore.txt"));
+			Scanner scanner = new Scanner(HighScore.class.getResourceAsStream("../HighScore.txt"));
 			while(scanner.hasNextLine()){
 				String line = scanner.nextLine();
 				scores.add(Integer.parseInt(line));
@@ -38,6 +55,7 @@ public final class HighScore {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+		*/
 			/*
 			BufferedReader reader = new BufferedReader(new FileReader("/resources/HighScore.txt"));
 			String line = reader.readLine();
@@ -68,9 +86,9 @@ public final class HighScore {
 		}
 		*/
 		try {
-			FileWriter writer = new FileWriter("/resources/HighScore.txt", true);
+			FileWriter writer = new FileWriter("HighScore.txt", true);
 			BufferedWriter bufferedWriter = new BufferedWriter(writer);
-			bufferedWriter.write(scoreString.toString());
+			bufferedWriter.append(scoreString);
 			bufferedWriter.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
