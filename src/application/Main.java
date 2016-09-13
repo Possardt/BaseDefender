@@ -40,7 +40,7 @@ public class Main extends Application {
 		
 		
 		window.setScene(mainMenuScene);
-		window.setTitle("BD V1.1");
+		window.setTitle("BD V2.0");
 		window.setResizable(false);
 		window.show();
 		

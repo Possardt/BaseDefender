@@ -3,7 +3,9 @@ package application;
 import java.util.ArrayList;
 
 import com.sun.glass.ui.Window;
+import com.sun.javafx.geom.Rectangle;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +21,7 @@ public class HighScorePane {
 	private Stage applicationWindow;
 	private ArrayList scores;
 	private Scene highScoreScene;
+
 	
 	public HighScorePane(Stage window){
 		this.applicationWindow = window;
@@ -59,6 +62,16 @@ public class HighScorePane {
 		}
 	}
 	
+	public void play(){
+		AnimationTimer highScoreTimer = new AnimationTimer(){
+			@Override
+			public void handle(long arg0){
+				
+			}
+		};
+		highScoreTimer.start();
+	}
+	
 	private void deleteExistingHighScoreLabels(){
 		Label scoreListIdLabel = (Label) highScoreScene.lookup("#scoreListLabel");
 		while(scoreListIdLabel != null){
@@ -69,6 +82,7 @@ public class HighScorePane {
 	
 	private void returnToMainMenu(){
 		mainMenuPane.startMainMenuAnimator();
+		//stop highscoreTimer
 		applicationWindow.setScene(mainMenuScene);
 	}
 	
