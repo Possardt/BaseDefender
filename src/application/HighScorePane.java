@@ -21,6 +21,8 @@ public class HighScorePane {
 	private Stage applicationWindow;
 	private ArrayList scores;
 	private Scene highScoreScene;
+	private AnimationTimer highScoreTimer;
+	private Firework firework1;
 
 	
 	public HighScorePane(Stage window){
@@ -63,10 +65,14 @@ public class HighScorePane {
 	}
 	
 	public void play(){
-		AnimationTimer highScoreTimer = new AnimationTimer(){
+		Firework firework1 = new Firework(350, 500);
+		Firework firework2 = new Firework(350, 500);
+		highScorePane.getChildren().addAll(firework1.body, firework2.body);
+		highScoreTimer = new AnimationTimer(){
 			@Override
 			public void handle(long arg0){
-				
+				firework1.animateFirework(highScorePane);
+				firework2.animateFirework(highScorePane);
 			}
 		};
 		highScoreTimer.start();
@@ -80,9 +86,12 @@ public class HighScorePane {
 		}
 	}
 	
+	
+	
 	private void returnToMainMenu(){
 		mainMenuPane.startMainMenuAnimator();
 		//stop highscoreTimer
+		highScoreTimer.stop();
 		applicationWindow.setScene(mainMenuScene);
 	}
 	

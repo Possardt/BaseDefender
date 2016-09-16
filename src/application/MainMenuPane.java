@@ -102,6 +102,7 @@ public class MainMenuPane {
 	public void toHighScoreScreen(Stage window, Scene scene, AnimationTimer animator, HighScorePane hsp){
 		window.setScene(scene);
 		hsp.addHighScoreLabels();
+		hsp.play();
 		animator.stop();
 	}
 	
