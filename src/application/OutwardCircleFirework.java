@@ -44,7 +44,26 @@ public class OutwardCircleFirework extends Firework{
 
 	@Override
 	public void explodeFireworkAnimation(Pane highScorePane) {
-		
+		if(fuse == 0){
+			setupExplosion(highScorePane);
+			fuse--;
+		}else if(fuse > -300){
+			moveExplosionOutward();
+			fuse--;
+		}else{
+			highScorePane.getChildren().removeAll(explosionEffectContainer);
+			explosionEffectContainer.clear();
+			explodeFirework = false;
+			shootFirework = false;
+			reloadFirework = true;
+		}
+	}
+	
+	private void moveExplosionOutward(){
+		for(Circle circle : explosionEffectContainer){
+			circle.setCenterX(circle.getCenterX() - 2);
+			circle.setOpacity(circle.getOpacity() - .01);
+		}
 	}
 	
 }

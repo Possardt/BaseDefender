@@ -66,7 +66,7 @@ public class HighScorePane {
 	
 	public void play(){
 		OutwardRectangleFirework firework1 = new OutwardRectangleFirework(350, 500);
-		OutwardRectangleFirework firework2 = new OutwardRectangleFirework(350, 500);
+		OutwardCircleFirework firework2 = new OutwardCircleFirework(350, 500);
 		highScorePane.getChildren().addAll(firework1.body, firework2.body);
 		highScoreTimer = new AnimationTimer(){
 			@Override
