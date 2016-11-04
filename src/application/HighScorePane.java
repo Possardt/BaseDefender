@@ -22,7 +22,7 @@ public class HighScorePane {
 	private ArrayList scores;
 	private Scene highScoreScene;
 	private AnimationTimer highScoreTimer;
-	private Firework firework1;
+	private OutwardRectangleFirework firework1;
 
 	
 	public HighScorePane(Stage window){
@@ -65,8 +65,8 @@ public class HighScorePane {
 	}
 	
 	public void play(){
-		Firework firework1 = new Firework(350, 500);
-		Firework firework2 = new Firework(350, 500);
+		OutwardRectangleFirework firework1 = new OutwardRectangleFirework(350, 500);
+		OutwardRectangleFirework firework2 = new OutwardRectangleFirework(350, 500);
 		highScorePane.getChildren().addAll(firework1.body, firework2.body);
 		highScoreTimer = new AnimationTimer(){
 			@Override
