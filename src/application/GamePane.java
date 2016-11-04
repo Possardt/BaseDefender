@@ -20,7 +20,7 @@ private Pane gameScreenLayout;
 private MainMenuPane mainMenuPane;
 private AnimationTimer gameTimer;
 public static boolean isGameStarted;	
-private Label gameLabel, countDown, healthLabel,scoreLabel, currentScoreLabel, gameOverLabel;
+private Label gameLabel, countDown, healthLabel,scoreLabel, currentScoreLabel, gameOverLabel, highScoreLabel;
 private Turret turret;
 private int gameScore = 0;
 private Scene mainMenuScene;
@@ -81,39 +81,39 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		
 		resetGameValues();
 		//no brackets after this if statement? it does nothing.
-		if(isGameStarted)
-			System.out.println("game timer started");
-			gameTimer = new AnimationTimer(){
-				@Override
-				public void handle(long arg0){
-					if(timeKeeper < 500){
-						doCountDown(timeKeeper);
-					}else{
-						missile.bulletMissileCollisionListener(turret.getBulletIterator(),gameScreenLayout, explosion);
-						missile1.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout, explosion1);
-						missile.animateMissile(gameScreenLayout, explosion, turret.getBulletIterator(),turret);
-						missile1.animateMissile(gameScreenLayout, explosion1, turret.getBulletIterator(), turret);
-						//missile2.animateMissile(gameScreenLayout, explosion2);
-						//missile3.animateMissile(gameScreenLayout, explosion3);
-						//missile4.animateMissile(gameScreenLayout, explosion4);
-						
-						//missile1.bulletMissileCollision(turret.getBulletIterator());
-						//missile2.bulletMissileCollision(turret.getBulletIterator());
-						//missile3.bulletMissileCollision(turret.getBulletIterator());
-						//missile4.bulletMissileCollision(turret.getBulletIterator());
-						iterateGameScore(timeKeeper);
-					}
-				turret.rotateTurret(mouseX, mouseY);
-				turret.turretRecoil(getGameScreenLayout(),timeKeeper);
-				turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY);
-				turret.updateHealth();
-				if(turret.getTurretHealth() <= 0){
-					gameOver();
-					this.stop();
+		//if(isGameStarted)
+		System.out.println("game timer started");
+		gameTimer = new AnimationTimer(){
+			@Override
+			public void handle(long arg0){
+				if(timeKeeper < 500){
+					doCountDown(timeKeeper);
+				}else{
+					missile.bulletMissileCollisionListener(turret.getBulletIterator(),gameScreenLayout, explosion);
+					missile1.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout, explosion1);
+					missile.animateMissile(gameScreenLayout, explosion, turret.getBulletIterator(),turret);
+					missile1.animateMissile(gameScreenLayout, explosion1, turret.getBulletIterator(), turret);
+					//missile2.animateMissile(gameScreenLayout, explosion2);
+					//missile3.animateMissile(gameScreenLayout, explosion3);
+					//missile4.animateMissile(gameScreenLayout, explosion4);
+					
+					//missile1.bulletMissileCollision(turret.getBulletIterator());
+					//missile2.bulletMissileCollision(turret.getBulletIterator());
+					//missile3.bulletMissileCollision(turret.getBulletIterator());
+					//missile4.bulletMissileCollision(turret.getBulletIterator());
+					iterateGameScore(timeKeeper);
 				}
-				timeKeeper++;				
-				updateGameScore();
+			turret.rotateTurret(mouseX, mouseY);
+			turret.turretRecoil(getGameScreenLayout(),timeKeeper);
+			turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY);
+			turret.updateHealth();
+			if(turret.getTurretHealth() <= 0){
+				gameOver();
+				this.stop();
 			}
+			timeKeeper++;				
+			updateGameScore();
+		}
 			
 		};
 		gameTimer.start();
@@ -192,7 +192,10 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 			return;
 		else{
 			HighScore.addHighScore(gameScore);
-			System.out.println("High score!: " + gameScore);
+			highScoreLabel = new Label("New high score!!!");
+			highScoreLabel.setLayoutX(30);
+			highScoreLabel.setLayoutY(60);
+			gameScreenLayout.getChildren().add(highScoreLabel);
 		}
 	}
 	
@@ -264,6 +267,7 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		gameScreenLayout.getChildren().remove(returnToMainMenuButton);
 		gameScreenLayout.getChildren().remove(exitGameButton);
 		gameScreenLayout.getChildren().remove(gameOverLabel);
+		gameScreenLayout.getChildren().remove(highScoreLabel);
 		gameLabel.setOpacity(1);
 		countDown.setText("3");
 		countDown.setOpacity(1);
