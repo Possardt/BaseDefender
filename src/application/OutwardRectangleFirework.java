@@ -13,7 +13,7 @@ public class OutwardRectangleFirework extends Firework{
 	public OutwardRectangleFirework(int screenX, int screenY){
 		centerScreenX = screenX;
 		centerScreenY = screenY;
-		body = new Rectangle(centerScreenX, centerScreenY, 5, 15);
+		body = new Rectangle(centerScreenX, centerScreenY, 2, 10);
 		color = getRandomColor();
 		angle = getRandomAngle();
 		body.setFill(Paint.valueOf(color));
