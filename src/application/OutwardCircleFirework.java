@@ -5,24 +5,13 @@ import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 public class OutwardCircleFirework extends Firework{
 	private ArrayList<Circle> explosionEffectContainer = new ArrayList<Circle>();
 	
 	public OutwardCircleFirework(int screenX, int screenY){
-		centerScreenX = screenX;
-		centerScreenY = screenY;
-		body = new Rectangle(centerScreenX, centerScreenY, 2, 10);
-		color = getRandomColor();
-		angle = getRandomAngle();
-		body.setFill(Paint.valueOf(color));
-		//rotate firework
-		body.getTransforms().add(new Rotate(angle,250,700));
-		fuse = 80;
-		
-		shootFirework = true;
+		super(screenX,screenY);
 	}
 	
 	@Override

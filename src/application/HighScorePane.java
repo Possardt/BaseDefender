@@ -70,7 +70,7 @@ public class HighScorePane {
 		fireworks.add(firework1);
 		fireworks.add(firework2);
 		fireworks.add(firework3);
-		highScorePane.getChildren().addAll(firework1.body, firework2.body);
+		highScorePane.getChildren().addAll(firework1.body, firework2.body,firework3.body);
 		highScoreTimer = new AnimationTimer(){
 			@Override
 			public void handle(long arg0){

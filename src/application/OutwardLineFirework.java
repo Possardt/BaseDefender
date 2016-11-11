@@ -1,31 +1,14 @@
 package application;
 
-import java.util.ArrayList;
-
-import com.sun.scenario.effect.Effect;
-
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
-//You could do even more For these special firework types(ie, they can inherit more..
-
 
 public class OutwardLineFirework extends Firework {
-	private ArrayList<Rectangle> explosionEffectContainer = new ArrayList<Rectangle>();
 	
 	public OutwardLineFirework(int screenX, int screenY){
-		centerScreenX = screenX;
-		centerScreenY = screenY;
-		body = new Rectangle(centerScreenX, centerScreenY, 2, 10);
-		color = getRandomColor();
-		angle = getRandomAngle();
-		body.setFill(Paint.valueOf(color));
-		//rotate firework
-		body.getTransforms().add(new Rotate(angle,250,700));
-		fuse = 80;
-		
-		shootFirework = true;
+		super(screenX,screenY);
 	}
 	
 	@Override

@@ -8,17 +8,31 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 public abstract class Firework {
-	public Rectangle body;
-	public Rectangle trail;
-	public boolean shootFirework,explodeFirework,reloadFirework;
-	public String[] colors = {"Red","Purple","Green","Orange"};
-	public int fuse;
-	public int explodeLocX, explodeLocY;
-	public int angle, centerScreenX, centerScreenY;
-	public String color;
+	protected Rectangle body;
+	protected Rectangle trail;
+	protected boolean shootFirework,explodeFirework,reloadFirework;
+	protected String[] colors = {"Red","Purple","Green","Orange"};
+	protected int fuse;
+	protected int explodeLocX, explodeLocY;
+	protected int angle, centerScreenX, centerScreenY;
+	protected String color;
+	protected ArrayList<Rectangle> explosionEffectContainer = new ArrayList<Rectangle>();
 	
+	protected Firework(int screenX, int screenY){
+		centerScreenX = screenX;
+		centerScreenY = screenY;
+		body = new Rectangle(centerScreenX, centerScreenY, 2, 10);
+		color = getRandomColor();
+		angle = getRandomAngle();
+		body.setFill(Paint.valueOf(color));
+		//rotate firework
+		body.getTransforms().add(new Rotate(angle,250,700));
+		fuse = 80;
+		
+		shootFirework = true;
+	}
 	
-	public void animateFirework(Pane highScorePane){
+	protected void animateFirework(Pane highScorePane){
 		//use 3 cases: shoot, explode, and reloadFirework
 		if(shootFirework){
 			//move the firework up the screen and subtract from the fuse
@@ -32,7 +46,7 @@ public abstract class Firework {
 		}
 	}
 	
-	private void moveFireworkUpScreen(){
+	protected void moveFireworkUpScreen(){
 		if(fuse > 10){
 			body.setY(body.getY() - 5);
 			fuse--;
@@ -56,7 +70,7 @@ public abstract class Firework {
 	}
 	
 	
-	private void reloadFireworkInHighScoreScreen(){
+	protected void reloadFireworkInHighScoreScreen(){
 		explodeLocX = 0;
 		explodeLocY = 0;
 		fuse = 80;
