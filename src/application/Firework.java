@@ -91,7 +91,9 @@ public abstract class Firework {
 	//abstract methods
 	public abstract void setupExplosion(Pane highScorePane);
 	public abstract void explodeFireworkAnimation(Pane highScorePane);
-	
+	public void removeExplosionEffects(Pane highScorePane){
+		highScorePane.getChildren().removeAll(explosionEffectContainer);
+	}
 	
 	protected String getRandomColor(){
 		return colors[(int)(Math.random() * 100) % colors.length];
@@ -104,5 +106,4 @@ public abstract class Firework {
 			rand *= -1;
 		return rand;
 	}
-	
 }

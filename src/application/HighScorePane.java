@@ -3,13 +3,14 @@ package application;
 import java.util.ArrayList;
 
 import com.sun.glass.ui.Window;
-import com.sun.javafx.geom.Rectangle;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class HighScorePane {
@@ -67,16 +68,19 @@ public class HighScorePane {
 		OutwardRectangleFirework firework1 = new OutwardRectangleFirework(350, 500);
 		OutwardCircleFirework firework2 = new OutwardCircleFirework(350, 500);
 		OutwardLineFirework firework3 = new OutwardLineFirework(350, 500);
+		RandomDotFirework firework4 = new RandomDotFirework(350,500);
 		fireworks.add(firework1);
 		fireworks.add(firework2);
 		fireworks.add(firework3);
-		highScorePane.getChildren().addAll(firework1.body, firework2.body,firework3.body);
+		fireworks.add(firework4);
+		highScorePane.getChildren().addAll(firework1.body, firework2.body,firework3.body,firework4.body);
 		highScoreTimer = new AnimationTimer(){
 			@Override
 			public void handle(long arg0){
 				firework1.animateFirework(highScorePane);
 				firework2.animateFirework(highScorePane);
 				firework3.animateFirework(highScorePane);
+				firework4.animateFirework(highScorePane);
 			}
 		};
 		highScoreTimer.start();
@@ -96,6 +100,7 @@ public class HighScorePane {
 		mainMenuPane.startMainMenuAnimator();
 		//highScorePane.getChildren().removeAll(fireworks);
 		//stop highscoreTimer
+		removeFireworks();
 		highScoreTimer.stop();
 		applicationWindow.setScene(mainMenuScene);
 	}
@@ -113,5 +118,12 @@ public class HighScorePane {
 	
 	public void setHighScoreScene(Scene scene){
 		this.highScoreScene = scene;
+	}
+	private void removeFireworks(){
+		for(Firework firework : fireworks){
+			firework.removeExplosionEffects(highScorePane);
+			highScorePane.getChildren().remove(firework.body);
+			
+		}
 	}
 }

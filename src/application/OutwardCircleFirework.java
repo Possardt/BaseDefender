@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 public class OutwardCircleFirework extends Firework{
@@ -46,6 +47,12 @@ public class OutwardCircleFirework extends Firework{
 			shootFirework = false;
 			reloadFirework = true;
 		}
+	}
+	
+	@Override
+	public void removeExplosionEffects(Pane highScorePane){
+		highScorePane.getChildren().removeAll(explosionEffectContainer);
+		explosionEffectContainer.clear();
 	}
 	
 	private void moveExplosionOutward(){
