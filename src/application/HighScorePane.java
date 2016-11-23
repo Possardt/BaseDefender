@@ -2,15 +2,12 @@ package application;
 
 import java.util.ArrayList;
 
-import com.sun.glass.ui.Window;
 
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class HighScorePane {

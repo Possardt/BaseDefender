@@ -5,12 +5,8 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public final class HighScore {
 	//private static File file = ClassLoader.getSystemResource("/resources/HighScore.txt");

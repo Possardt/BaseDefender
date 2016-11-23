@@ -21,7 +21,7 @@ public class Turret {
 	private Set<Circle> bullets = new HashSet<Circle>();
 	private int timeShot;
 	private int turretHealth = 100;
-	
+	private Sound sound = new Sound();
 	
 	/**
 	 * Constructor
@@ -81,6 +81,7 @@ public class Turret {
 			bullet.getTransforms().add(barrelRotation);
 			bullets.add(bullet);
 			bullet.setOpacity(.1);
+			sound.playTurretShotSound();
 		}else{
 			Iterator<Circle> bulletIterator = bullets.iterator();
 			while(bulletIterator.hasNext()){

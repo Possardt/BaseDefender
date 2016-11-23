@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Rotate;
 
 public class OutwardCircleFirework extends Firework{
