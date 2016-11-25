@@ -164,6 +164,7 @@ public class Missile {
 					bullets.remove();
 					p.getChildren().remove(bullet);
 					System.out.println("removed bullet and missile.");
+					Sound.playShotMissileCollisionSound();
 					bulletMissileCollisionBool = true;
 					break;
 				}

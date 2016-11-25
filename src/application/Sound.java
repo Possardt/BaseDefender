@@ -15,5 +15,15 @@ public final class Sound {
 			System.out.println("Sound not played");
 			e.printStackTrace();
 		}
-}
+	}
+	public static void playShotMissileCollisionSound(){
+		try{
+			InputStream inputStream = Sound.class.getResourceAsStream("turretShotMissileColl.wav");
+			AudioStream audioStream = new AudioStream(inputStream);
+			AudioPlayer.player.start(audioStream);
+		}catch(Exception e){
+			System.out.println("Sound not played");
+			e.printStackTrace();
+		}
+	}
 }
