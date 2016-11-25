@@ -25,13 +25,17 @@ public class HighScorePane {
 	public HighScorePane(Stage window){
 		this.applicationWindow = window;
 		highScorePane = new Pane();
+		highScorePane.getStyleClass().add("highScoreScreen");
 		highScoreLabel = new Label("High Scores:");
+		highScoreLabel.setId("highScoreLabel");
+		
 		highScoreLabel.setLayoutX(50);
 		highScoreLabel.setLayoutY(60);
 		
 		returnToMainScreenButton = new Button("Back");
 		returnToMainScreenButton.setLayoutX(30);
 		returnToMainScreenButton.setLayoutY(20);
+		returnToMainScreenButton.setId("highScoreLabel");
 		returnToMainScreenButton.setOnAction(e -> returnToMainMenu());
 		
 		fireworks = new ArrayList<Firework>();
@@ -66,11 +70,17 @@ public class HighScorePane {
 		OutwardCircleFirework firework2 = new OutwardCircleFirework(350, 500);
 		OutwardLineFirework firework3 = new OutwardLineFirework(350, 500);
 		RandomDotFirework firework4 = new RandomDotFirework(350,500);
+		OutwardCircleFirework firework5 = new OutwardCircleFirework(350, 500);
+		OutwardLineFirework firework6 = new OutwardLineFirework(350, 500);
+		RandomDotFirework firework7 = new RandomDotFirework(350,500);
 		fireworks.add(firework1);
 		fireworks.add(firework2);
 		fireworks.add(firework3);
 		fireworks.add(firework4);
-		highScorePane.getChildren().addAll(firework1.body, firework2.body,firework3.body,firework4.body);
+		fireworks.add(firework5);
+		fireworks.add(firework6);
+		fireworks.add(firework7);
+		highScorePane.getChildren().addAll(firework1.body, firework2.body,firework3.body,firework4.body, firework5.body,firework6.body,firework7.body);
 		highScoreTimer = new AnimationTimer(){
 			@Override
 			public void handle(long arg0){
@@ -78,6 +88,9 @@ public class HighScorePane {
 				firework2.animateFirework(highScorePane);
 				firework3.animateFirework(highScorePane);
 				firework4.animateFirework(highScorePane);
+				firework5.animateFirework(highScorePane);
+				firework6.animateFirework(highScorePane);
+				firework7.animateFirework(highScorePane);
 			}
 		};
 		highScoreTimer.start();

@@ -27,7 +27,7 @@ public abstract class Firework {
 		body.setFill(Paint.valueOf(color));
 		//rotate firework
 		body.getTransforms().add(new Rotate(angle,250,700));
-		fuse = 80;
+		fuse = getRandomFuse();
 		
 		shootFirework = true;
 	}
@@ -73,7 +73,7 @@ public abstract class Firework {
 	protected void reloadFireworkInHighScoreScreen(){
 		explodeLocX = 0;
 		explodeLocY = 0;
-		fuse = 80;
+		fuse = getRandomFuse();
 		angle = getRandomAngle();
 		color = getRandomColor();
 		body.setOpacity(1);
@@ -105,5 +105,10 @@ public abstract class Firework {
 		if(Math.random() > .5)
 			rand *= -1;
 		return rand;
+	}
+	
+	//value from 80 to 120
+	protected int getRandomFuse(){
+		return (int)((Math.random() * 100) % 70) + 40;
 	}
 }

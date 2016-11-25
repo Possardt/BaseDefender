@@ -39,48 +39,12 @@ public final class HighScore {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-		/*
-		try {
-			Scanner scanner = new Scanner(HighScore.class.getResourceAsStream("../HighScore.txt"));
-			while(scanner.hasNextLine()){
-				String line = scanner.nextLine();
-				scores.add(Integer.parseInt(line));
-			}
-			scanner.close();
-			scores.sort(highToLowComparator);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		*/
-			/*
-			BufferedReader reader = new BufferedReader(new FileReader("/resources/HighScore.txt"));
-			String line = reader.readLine();
-			while(line != null){
-				scores.add(Integer.parseInt(line));
-			}
-			scores.sort(null);
-			reader.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		return scores;
 	}
 	
 	public static void addHighScore(int score){
 		StringBuilder scoreString = new StringBuilder();
 		scoreString.append(score + "\n");
-		/*
-		try{
-			Files.write(Paths.get(HighScore.class.getResource("/resources/HighScore.txt").toURI()), scoreString.toString().getBytes(), StandardOpenOption.APPEND);
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		*/
 		try {
 			FileWriter writer = new FileWriter("HighScore.txt", true);
 			BufferedWriter bufferedWriter = new BufferedWriter(writer);

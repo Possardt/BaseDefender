@@ -6,9 +6,9 @@ import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 
 public final class Sound {
-	public void playTurretShotSound(){
+	public static void playTurretShotSound(){
 		try{
-			InputStream inputStream = getClass().getResourceAsStream("turretShot.wav");
+			InputStream inputStream = Sound.class.getResourceAsStream("turretShot.wav");
 			AudioStream audioStream = new AudioStream(inputStream);
 			AudioPlayer.player.start(audioStream);
 		}catch(Exception e){
