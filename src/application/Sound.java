@@ -26,4 +26,15 @@ public final class Sound {
 			e.printStackTrace();
 		}
 	}
+	public static void playFireworkShotSound(){
+		try{
+			InputStream inputStream = Sound.class.getResourceAsStream("fireworkShot.wav");
+			AudioStream audioStream = new AudioStream(inputStream);
+			AudioPlayer.player.start(audioStream);
+		}catch(Exception e){
+			System.out.println("Sound not played");
+			e.printStackTrace();
+		}
+	}
+	
 }

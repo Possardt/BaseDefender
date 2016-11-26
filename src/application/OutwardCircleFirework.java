@@ -10,8 +10,8 @@ import javafx.scene.transform.Rotate;
 public class OutwardCircleFirework extends Firework{
 	private ArrayList<Circle> explosionEffectContainer = new ArrayList<Circle>();
 	
-	public OutwardCircleFirework(int screenX, int screenY){
-		super(screenX,screenY);
+	public OutwardCircleFirework(int screenX, int screenY, int delay){
+		super(screenX,screenY, delay);
 	}
 	
 	@Override

@@ -9,8 +9,8 @@ import javafx.scene.shape.Circle;
 public class RandomDotFirework extends Firework{
 	private ArrayList<Circle> explosionEffectContainer = new ArrayList<Circle>();
 	
-	protected RandomDotFirework(int screenX, int screenY) {
-		super(screenX, screenY);
+	protected RandomDotFirework(int screenX, int screenY, int delay) {
+		super(screenX, screenY,delay);
 	}
 
 	@Override

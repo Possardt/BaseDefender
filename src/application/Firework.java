@@ -17,8 +17,9 @@ public abstract class Firework {
 	protected int angle, centerScreenX, centerScreenY;
 	protected String color;
 	protected ArrayList<Rectangle> explosionEffectContainer = new ArrayList<Rectangle>();
+	protected int delay;
 	
-	protected Firework(int screenX, int screenY){
+	protected Firework(int screenX, int screenY,int delay){
 		centerScreenX = screenX;
 		centerScreenY = screenY;
 		body = new Rectangle(centerScreenX, centerScreenY, 2, 10);
@@ -28,11 +29,16 @@ public abstract class Firework {
 		//rotate firework
 		body.getTransforms().add(new Rotate(angle,250,700));
 		fuse = getRandomFuse();
-		
+		Sound.playFireworkShotSound();
 		shootFirework = true;
+		this.delay = delay;
 	}
 	
 	protected void animateFirework(Pane highScorePane){
+		if(delay > 0){
+			delay--;
+			return;
+		}
 		//use 3 cases: shoot, explode, and reloadFirework
 		if(shootFirework){
 			//move the firework up the screen and subtract from the fuse
@@ -82,6 +88,7 @@ public abstract class Firework {
 		body.setY(centerScreenY);
 		body.getTransforms().clear();
 		body.getTransforms().add(new Rotate(angle, 250, 700));
+		Sound.playFireworkShotSound();
 		explodeFirework = false;
 		shootFirework = true;
 		reloadFirework = false;

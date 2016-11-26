@@ -7,8 +7,8 @@ import javafx.scene.transform.Rotate;
 
 public class OutwardLineFirework extends Firework {
 	
-	public OutwardLineFirework(int screenX, int screenY){
-		super(screenX,screenY);
+	public OutwardLineFirework(int screenX, int screenY, int delay){
+		super(screenX,screenY, delay);
 	}
 	
 	@Override

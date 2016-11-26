@@ -7,8 +7,8 @@ import javafx.scene.transform.Rotate;
 
 public class OutwardRectangleFirework extends Firework{
 	
-	protected OutwardRectangleFirework(int screenX, int screenY) {
-		super(screenX, screenY);
+	protected OutwardRectangleFirework(int screenX, int screenY, int delay) {
+		super(screenX, screenY,delay);
 	}
 	
 	@Override

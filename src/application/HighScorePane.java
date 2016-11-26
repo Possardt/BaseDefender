@@ -66,13 +66,13 @@ public class HighScorePane {
 	}
 	
 	public void play(){
-		OutwardRectangleFirework firework1 = new OutwardRectangleFirework(350, 500);
-		OutwardCircleFirework firework2 = new OutwardCircleFirework(350, 500);
-		OutwardLineFirework firework3 = new OutwardLineFirework(350, 500);
-		RandomDotFirework firework4 = new RandomDotFirework(350,500);
-		OutwardCircleFirework firework5 = new OutwardCircleFirework(350, 500);
-		OutwardLineFirework firework6 = new OutwardLineFirework(350, 500);
-		RandomDotFirework firework7 = new RandomDotFirework(350,500);
+		OutwardRectangleFirework firework1 = new OutwardRectangleFirework(350, 500, 0);
+		OutwardCircleFirework firework2 = new OutwardCircleFirework(350, 500, 0);
+		OutwardLineFirework firework3 = new OutwardLineFirework(350, 500, 0);
+		RandomDotFirework firework4 = new RandomDotFirework(350,500, 0);
+		OutwardCircleFirework firework5 = new OutwardCircleFirework(350, 500, 0);
+		OutwardLineFirework firework6 = new OutwardLineFirework(350, 500, 0);
+		RandomDotFirework firework7 = new RandomDotFirework(350,500, 0);
 		fireworks.add(firework1);
 		fireworks.add(firework2);
 		fireworks.add(firework3);
