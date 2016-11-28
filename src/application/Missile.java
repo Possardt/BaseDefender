@@ -118,6 +118,7 @@ public class Missile {
 	     		   resetFire(missile.getX(),missile.getY());
 	     		   resetBlade1(missile.getX(),missile.getY());
 	     		   resetBlade2(missile.getX(),missile.getY());
+	     		   bulletMissileCollisionBool = false;
 	     		   exploded = true;
 	     	   }
 	      }

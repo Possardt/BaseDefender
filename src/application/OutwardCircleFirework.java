@@ -29,6 +29,7 @@ public class OutwardCircleFirework extends Firework{
 			rotate += (360 / explosionEffectContainer.size());
 		}
 		highScorePane.getChildren().addAll(explosionEffectContainer);
+		Sound.playFireworkExplodeSound();
 	}
 
 	@Override

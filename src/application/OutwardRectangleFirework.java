@@ -29,8 +29,7 @@ public class OutwardRectangleFirework extends Firework{
 		
 		
 		highScorePane.getChildren().addAll(explosionEffectContainer);
-		
-		
+		Sound.playFireworkExplodeSound();
 	}
 	
 	@Override

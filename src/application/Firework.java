@@ -29,18 +29,24 @@ public abstract class Firework {
 		//rotate firework
 		body.getTransforms().add(new Rotate(angle,250,700));
 		fuse = getRandomFuse();
-		Sound.playFireworkShotSound();
+		//Sound.playFireworkShotSound();
 		shootFirework = true;
 		this.delay = delay;
 	}
 	
 	protected void animateFirework(Pane highScorePane){
 		if(delay > 0){
+			body.setOpacity(0);
 			delay--;
 			return;
 		}
+		if(delay == 0){
+			delay--;
+			Sound.playFireworkShotSound();
+		}
 		//use 3 cases: shoot, explode, and reloadFirework
 		if(shootFirework){
+			body.setOpacity(1);
 			//move the firework up the screen and subtract from the fuse
 			moveFireworkUpScreen();
 		}else if(explodeFirework){

@@ -21,6 +21,7 @@ public class RandomDotFirework extends Firework{
 			explosionEffectContainer.add(circle);
 		}
 		highScorePane.getChildren().addAll(explosionEffectContainer);
+		Sound.playFireworkExplodeSound();
 	}
 
 	@Override
