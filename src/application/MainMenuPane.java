@@ -33,12 +33,6 @@ public class MainMenuPane {
 		//Layout for home screen
 		homeScreenLayout = new Pane();
 		
-		Explosion explosion = new Explosion();
-		Explosion explosion1 = new Explosion();
-		Explosion explosion2 = new Explosion();
-		Explosion explosion3 = new Explosion();
-		Explosion explosion4 = new Explosion();
-		
 		Missile missile = new Missile(2, 700, 500);
 		Missile missile1 = new Missile(3, 700, 500);
 		Missile missile2 = new Missile(2, 700, 500);
@@ -68,11 +62,11 @@ public class MainMenuPane {
                 // UPDATE
             	
                 // RENDER
-               missile.animateMissileHomeScreen(homeScreenLayout, explosion);
-               missile1.animateMissileHomeScreen(homeScreenLayout, explosion1);
-               missile2.animateMissileHomeScreen(homeScreenLayout, explosion2);
-               missile3.animateMissileHomeScreen(homeScreenLayout, explosion3);
-               missile4.animateMissileHomeScreen(homeScreenLayout, explosion4);
+               missile.animateMissileHomeScreen(homeScreenLayout);
+               missile1.animateMissileHomeScreen(homeScreenLayout);
+               missile2.animateMissileHomeScreen(homeScreenLayout);
+               missile3.animateMissileHomeScreen(homeScreenLayout);
+               missile4.animateMissileHomeScreen(homeScreenLayout);
                
             }      
         };

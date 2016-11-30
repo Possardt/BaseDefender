@@ -21,7 +21,7 @@ public class Missile {
 	public Rectangle innerFire;
 	boolean exploded = false;
 	private int missileSpeed;
-	private int explodeTime;
+	private int explodeTimer;
 	private double explodeLocationX,explodeLocationY;
 	private int screenHeight,screenWidth;
 	private boolean bulletMissileCollisionBool;
@@ -72,14 +72,10 @@ public class Missile {
 	
 	
 	
-	public void animateMissile(Pane screenLayout, Explosion explosion, Iterator<Circle> bullets, Turret turret){
+	public void animateMissile(Pane screenLayout, Iterator<Circle> bullets, Turret turret){
 		if(exploded){
-     	   explosion.missileExplode(screenLayout,this);
-     	   if(getExplodeTime() > 100){
-     		   exploded = false;
-     		   setExplodeTime(0);
-     	   }else
-     		   setExplodeTime(getExplodeTime() + 1);
+     	   missileExplode(screenLayout);
+     	   System.out.println("explode animation");
         }else{
      	   if(!(bulletMissileCollisionBool || missileFloorCollisionInGame(turret) || turretMissileCollision(turret))){
      		   moveMissile();
@@ -87,7 +83,8 @@ public class Missile {
      		   setExplodeLocationY(missile.getY());
      		   setExplodeLocationX(missile.getX());           		   
      		   missile.setX(Math.random() * screenWidth);
-     		   missile.setY((Math.random() * -100) - 20);
+     		   //missile.setY((Math.random() * -100) - 20);
+     		   missile.setY(100);
      		   resetTip(missile.getX(),missile.getY());
      		   resetFire(missile.getX(),missile.getY());
      		   resetBlade1(missile.getX(),missile.getY());
@@ -98,14 +95,9 @@ public class Missile {
 	}
 	
 	
-	public void animateMissileHomeScreen(Pane screenLayout, Explosion e){
+	public void animateMissileHomeScreen(Pane screenLayout){
 		if(exploded){
-	     	   e.missileExplode(screenLayout,this);
-	     	   if(getExplodeTime() > 100){
-	     		   exploded = false;
-	     		   setExplodeTime(0);
-	     	   }else
-	     		   setExplodeTime(getExplodeTime() + 1);
+	     	   missileExplode(screenLayout);
 	        }else{
 	     	   if(!missileBottomCollisionHomeScreen())
 	     		   moveMissile();
@@ -124,7 +116,32 @@ public class Missile {
 	      }
 	}
 	
-	
+	public void missileExplode(Pane screenLayout){
+		if(getExplodeTimer() == 0){
+			circle.setCenterX(getExplodeLocationX());
+			circle.setCenterY(getExplodeLocationY());
+			circle.setRadius(20);
+			circle.setOpacity(.75);
+			screenLayout.getChildren().add(circle);
+			//System.out.println("circle added");
+		} else if(getExplodeTimer() < 40){
+			circle.setRadius(circle.getRadius() + 1);
+			circle.setFill(Paint.valueOf("red"));
+			circle.setOpacity(circle.getOpacity() - .02);
+			circle.setCenterX(getExplodeLocationX());
+			circle.setCenterY(getExplodeLocationY());
+			//System.out.println("time < 40");
+		} else if(getExplodeTimer() < 100){
+			circle.setOpacity((circle.getOpacity() - .01));
+		}else{
+			screenLayout.getChildren().remove(circle);
+			setExplodeTimer(0);
+			exploded = false;
+			bulletMissileCollisionBool = false;
+			return;
+		}
+		setExplodeTimer(getExplodeTimer() + 1);
+	}
 	
 	public void removeBulletFromIterator(Iterator<Circle> bullets, Circle bullet){
 		while(bullets.hasNext()){
@@ -154,7 +171,7 @@ public class Missile {
 		return false;
 	}
 	
-	public void bulletMissileCollisionListener(Iterator<Circle> bullets, Pane p, Explosion e){
+	public void bulletMissileCollisionListener(Iterator<Circle> bullets, Pane p){
 		if(!bullets.hasNext()){
 			bulletMissileCollisionBool = false;
 		}else{
@@ -167,7 +184,7 @@ public class Missile {
 					System.out.println("removed bullet and missile.");
 					Sound.playShotMissileCollisionSound();
 					bulletMissileCollisionBool = true;
-					break;
+					return;
 				}
 			}
 		}
@@ -286,12 +303,12 @@ public class Missile {
 		return this.screenHeight;
 	}
 	
-	public void setExplodeTime(int eTime){
-		this.explodeTime = eTime;
+	public void setExplodeTimer(int eTime){
+		this.explodeTimer = eTime;
 	}
 	
-	public int getExplodeTime(){
-		return this.explodeTime;
+	public int getExplodeTimer(){
+		return this.explodeTimer;
 	}
 	
 	public void setExplodeLocationX(double eLocation){
