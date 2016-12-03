@@ -161,6 +161,7 @@ public class Missile {
 		if(missile.getY() + 30 > screenHeight){
 			t.subtractFromTurretHealth(50);
 			System.out.println(t.getTurretHealth());
+			Sound.playBaseMissileCollisionSound();
 			return true;
 		}
 		return false;
@@ -190,6 +191,7 @@ public class Missile {
 				turret.barrel.getBoundsInParent().intersects(missile.getBoundsInParent()) || 
 					turret.baseDome.getBoundsInParent().intersects(missile.getBoundsInParent())){
 			turret.subtractFromTurretHealth(10);
+			Sound.playBaseMissileCollisionSound();
 			return true;
 		}else{
 			return false;
