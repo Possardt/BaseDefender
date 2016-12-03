@@ -33,11 +33,11 @@ public class MainMenuPane {
 		//Layout for home screen
 		homeScreenLayout = new Pane();
 		
-		Missile missile = new Missile(2, 700, 500);
-		Missile missile1 = new Missile(3, 700, 500);
-		Missile missile2 = new Missile(2, 700, 500);
-		Missile missile3 = new Missile(3, 700, 500);
-		Missile missile4 = new Missile(2, 700, 500);
+		Missile missile = new Missile(2, 700, 500, 140, -20);
+		Missile missile1 = new Missile(3, 700, 500, 280, -30);
+		Missile missile2 = new Missile(2, 700, 500, 420, -20);
+		Missile missile3 = new Missile(3, 700, 500, 560, -10);
+		Missile missile4 = new Missile(2, 700, 500, 660, -5);
 		
 		addMissileToPane(missile);
 		addMissileToPane(missile1);

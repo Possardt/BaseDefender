@@ -59,8 +59,8 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 	
 	public void startGame(){
 				
-		Missile missile = new Missile(2,700,500);
-		Missile missile1 = new Missile(3,700,500);
+		Missile missile = new Missile(2,700,500, 140, -30);
+		Missile missile1 = new Missile(3,700,500, 420, -50);
 		//Missile missile2 = new Missile(2,700,500);
 		//Missile missile3 = new Missile(3,700,500);
 		//Missile missile4 = new Missile(2,700,500);
@@ -84,9 +84,9 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 					doCountDown(timeKeeper);
 				}else{
 					missile.bulletMissileCollisionListener(turret.getBulletIterator(),gameScreenLayout);
-					//missile1.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout, explosion1);
+					missile1.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout);
 					missile.animateMissile(gameScreenLayout, turret.getBulletIterator(),turret);
-					//missile1.animateMissile(gameScreenLayout, explosion1, turret.getBulletIterator(), turret);
+					missile1.animateMissile(gameScreenLayout, turret.getBulletIterator(), turret);
 					//missile2.animateMissile(gameScreenLayout, explosion2);
 					//missile3.animateMissile(gameScreenLayout, explosion3);
 					//missile4.animateMissile(gameScreenLayout, explosion4);

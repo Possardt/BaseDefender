@@ -27,7 +27,7 @@ public class Missile {
 	private boolean bulletMissileCollisionBool;
 	
 	
-	public Missile(int mSpeed, int screenWidth, int screenHeight){
+	public Missile(int mSpeed, int screenWidth, int screenHeight, int startingX, int startingY){
 		this.screenHeight = screenHeight;
 		this.screenWidth = screenWidth;
 		missile = new Rectangle(0,0,5,15);
@@ -37,8 +37,8 @@ public class Missile {
 		tip = new Polygon();
 		blade1 = new Polygon();
 		blade2 = new Polygon();
-		missile.setY((int)(Math.random()*-200)-20);
-		missile.setX((int)(Math.random() * screenWidth));
+		missile.setX(startingX);
+		missile.setY(startingY);
 		tip.getPoints().addAll(new Double[]{
 				missile.getX() - 2.0, missile.getY() + 15.0,
 				missile.getX() + 7.0, missile.getY() + 15.0,
@@ -80,16 +80,7 @@ public class Missile {
      	   if(!(bulletMissileCollisionBool || missileFloorCollisionInGame(turret) || turretMissileCollision(turret))){
      		   moveMissile();
      	   }else{
-     		   setExplodeLocationY(missile.getY());
-     		   setExplodeLocationX(missile.getX());           		   
-     		   missile.setX(Math.random() * screenWidth);
-     		   //missile.setY((Math.random() * -100) - 20);
-     		   missile.setY(100);
-     		   resetTip(missile.getX(),missile.getY());
-     		   resetFire(missile.getX(),missile.getY());
-     		   resetBlade1(missile.getX(),missile.getY());
-     		   resetBlade2(missile.getX(),missile.getY());
-     		   exploded = true;
+     		   setupMissileExplosion();
      	   }   
         }
 	}
@@ -102,18 +93,22 @@ public class Missile {
 	     	   if(!missileBottomCollisionHomeScreen())
 	     		   moveMissile();
 	     	   else{
-	     		   setExplodeLocationX(missile.getX());  
-	     		   setExplodeLocationY(missile.getY());
-	     		   missile.setX(Math.random() * screenWidth);
-	     		   missile.setY((Math.random() * -100) - 20);
-	     		   resetTip(missile.getX(),missile.getY());
-	     		   resetFire(missile.getX(),missile.getY());
-	     		   resetBlade1(missile.getX(),missile.getY());
-	     		   resetBlade2(missile.getX(),missile.getY());
-	     		   bulletMissileCollisionBool = false;
-	     		   exploded = true;
+	     		   setupMissileExplosion();
 	     	   }
 	      }
+	}
+	
+	private void setupMissileExplosion(){
+		setExplodeLocationX(missile.getX());  
+		setExplodeLocationY(missile.getY());
+		missile.setX(Math.random() * screenWidth);
+		missile.setY((Math.random() * -100) - 20);
+		resetTip(missile.getX(),missile.getY());
+		resetFire(missile.getX(),missile.getY());
+		resetBlade1(missile.getX(),missile.getY());
+		resetBlade2(missile.getX(),missile.getY());
+		bulletMissileCollisionBool = false;
+		exploded = true;
 	}
 	
 	public void missileExplode(Pane screenLayout){
