@@ -1,6 +1,7 @@
 package application;
 
 
+import java.util.HashSet;
 import java.util.Iterator;
 
 import javafx.scene.layout.Pane;
@@ -72,7 +73,7 @@ public class Missile {
 	
 	
 	
-	public void animateMissile(Pane screenLayout, Iterator<Circle> bullets, Turret turret){
+	public void animateMissile(Pane screenLayout, Iterator<Circle> bullets, Turret turret, HashSet<Integer> missileCoordsX){
 		if(exploded){
      	   missileExplode(screenLayout);
      	   System.out.println("explode animation");
@@ -80,28 +81,31 @@ public class Missile {
      	   if(!(bulletMissileCollisionBool || missileFloorCollisionInGame(turret) || turretMissileCollision(turret))){
      		   moveMissile();
      	   }else{
-     		   setupMissileExplosion();
+     		   setupMissileExplosion(missileCoordsX);
      	   }   
         }
 	}
 	
 	
-	public void animateMissileHomeScreen(Pane screenLayout){
+	public void animateMissileHomeScreen(Pane screenLayout, HashSet<Integer> missileCoordsX){
 		if(exploded){
 	     	   missileExplode(screenLayout);
 	        }else{
 	     	   if(!missileBottomCollisionHomeScreen())
 	     		   moveMissile();
 	     	   else{
-	     		   setupMissileExplosion();
+	     		   setupMissileExplosion(missileCoordsX);
 	     	   }
 	      }
 	}
 	
-	private void setupMissileExplosion(){
+	private void setupMissileExplosion(HashSet<Integer> missileCoordsX){
 		setExplodeLocationX(missile.getX());  
 		setExplodeLocationY(missile.getY());
-		missile.setX(Math.random() * screenWidth);
+		//resetMissile method
+		missileCoordsX.remove((int) this.getX());
+		missile.setX(getNewMissileX(missileCoordsX));
+		missileCoordsX.add((int) this.getX());
 		missile.setY((Math.random() * -100) - 20);
 		resetTip(missile.getX(),missile.getY());
 		resetFire(missile.getX(),missile.getY());
@@ -147,6 +151,16 @@ public class Missile {
 				break;
 			}
 		}
+	}
+	
+	private int getNewMissileX(HashSet<Integer> missileCoords){
+		int coord = (int) (Math.random() * screenWidth);
+		for(Integer i : missileCoords){
+			if(Math.abs((coord - i)) < 30){
+				return getNewMissileX(missileCoords);
+			}
+		}
+		return coord;
 	}
 	
 	//Collision detections

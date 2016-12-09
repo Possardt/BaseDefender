@@ -1,6 +1,7 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 
 import javafx.animation.AnimationTimer;
@@ -27,7 +28,8 @@ private Scene mainMenuScene;
 private double mouseX,mouseY;
 private Stage applicationWindow;
 private Button returnToMainMenuButton, exitGameButton;
-private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
+private ArrayList<Missile> missileContainer = new ArrayList<>();
+private HashSet<Integer> missilePositionsX = new HashSet<>();
 	public GamePane(Stage window){
 		applicationWindow = window;
 		instantiateGamePaneLabels();
@@ -72,7 +74,8 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 		//addMissileToPane(missile4);
 		missileContainer.add(missile);
 		missileContainer.add(missile1);
-		
+		missilePositionsX.add((int)missile.getX());
+		missilePositionsX.add((int)missile1.getX());
 		resetGameValues();
 		//no brackets after this if statement? it does nothing.
 		//if(isGameStarted)
@@ -85,8 +88,8 @@ private ArrayList<Missile> missileContainer = new ArrayList<Missile>();
 				}else{
 					missile.bulletMissileCollisionListener(turret.getBulletIterator(),gameScreenLayout);
 					missile1.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout);
-					missile.animateMissile(gameScreenLayout, turret.getBulletIterator(),turret);
-					missile1.animateMissile(gameScreenLayout, turret.getBulletIterator(), turret);
+					missile.animateMissile(gameScreenLayout, turret.getBulletIterator(),turret, missilePositionsX);
+					missile1.animateMissile(gameScreenLayout, turret.getBulletIterator(), turret, missilePositionsX);
 					//missile2.animateMissile(gameScreenLayout, explosion2);
 					//missile3.animateMissile(gameScreenLayout, explosion3);
 					//missile4.animateMissile(gameScreenLayout, explosion4);

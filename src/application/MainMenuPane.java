@@ -1,5 +1,7 @@
 package application;
 
+import java.util.HashSet;
+
 import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -12,6 +14,7 @@ import javafx.stage.Stage;
 public class MainMenuPane {
 	private Pane homeScreenLayout;
 	private AnimationTimer mainMenuAnimator;
+	private HashSet<Integer> missileLocationsX = new HashSet<>();
 	//default constructor builds screen
 	public MainMenuPane(Stage window, Scene gameScene, GamePane gamePane, Scene highScoreScene, HighScorePane highScorePane){
 		Label baseDefenderLabel = new Label("BaseDefender");
@@ -44,6 +47,12 @@ public class MainMenuPane {
 		addMissileToPane(missile2);
 		addMissileToPane(missile3);
 		addMissileToPane(missile4);
+		missileLocationsX.add((int)missile.getX());
+		missileLocationsX.add((int)missile1.getX());
+		missileLocationsX.add((int)missile2.getX());
+		missileLocationsX.add((int)missile3.getX());
+		missileLocationsX.add((int)missile4.getX());
+		
 		
 		
 		Image citySilhouette = new Image("/resources/Cityscape.png");
@@ -62,11 +71,11 @@ public class MainMenuPane {
                 // UPDATE
             	
                 // RENDER
-               missile.animateMissileHomeScreen(homeScreenLayout);
-               missile1.animateMissileHomeScreen(homeScreenLayout);
-               missile2.animateMissileHomeScreen(homeScreenLayout);
-               missile3.animateMissileHomeScreen(homeScreenLayout);
-               missile4.animateMissileHomeScreen(homeScreenLayout);
+               missile.animateMissileHomeScreen(homeScreenLayout, missileLocationsX);
+               missile1.animateMissileHomeScreen(homeScreenLayout, missileLocationsX);
+               missile2.animateMissileHomeScreen(homeScreenLayout, missileLocationsX);
+               missile3.animateMissileHomeScreen(homeScreenLayout, missileLocationsX);
+               missile4.animateMissileHomeScreen(homeScreenLayout, missileLocationsX);
                
             }      
         };
