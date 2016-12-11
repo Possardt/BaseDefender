@@ -72,7 +72,7 @@ public class Turret {
 		}		
 	}
 	
-	public void turretShot(Pane p, int time, double mouseX, double mouseY){
+	public void turretShot(Pane p, int time, double mouseX, double mouseY, Rectangle topBulletBoundary){
 		if(time == timeShot){
 			Circle bullet = new Circle(barrelEnd.getX(),barrelEnd.getY(),5);
 			p.getChildren().add(bullet);
@@ -85,7 +85,7 @@ public class Turret {
 			Iterator<Circle> bulletIterator = bullets.iterator();
 			while(bulletIterator.hasNext()){
 				Circle bullet = bulletIterator.next();
-				if(bullet.getCenterX() < -100 || bullet.getCenterX() > 1200){
+				if(bullet.getCenterX() < -100 || bullet.getCenterX() > 1200 || bullet.getBoundsInParent().intersects(topBulletBoundary.getBoundsInLocal())){
 					p.getChildren().remove(bullet);
 					System.out.println("bullet removed.");
 					bulletIterator.remove();

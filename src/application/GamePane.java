@@ -22,6 +22,7 @@ private MainMenuPane mainMenuPane;
 private AnimationTimer gameTimer;
 public static boolean isGameStarted;	
 private Label gameLabel, countDown, healthLabel,scoreLabel, currentScoreLabel, gameOverLabel, highScoreLabel;
+private Rectangle topBulletBoundary;
 private Turret turret;
 private int gameScore = 0;
 private Scene mainMenuScene;
@@ -36,7 +37,8 @@ private HashSet<Integer> missilePositionsX = new HashSet<>();
 		gameScreenLayout = new Pane();
 		turret = new Turret();
 		Rectangle bottom = new Rectangle(0,480,700,20);
-		gameScreenLayout.getChildren().addAll(bottom, gameLabel,countDown,healthLabel,scoreLabel,currentScoreLabel);
+		topBulletBoundary = new Rectangle(0,-2, 700, 2);
+		gameScreenLayout.getChildren().addAll(bottom, gameLabel,countDown,healthLabel,scoreLabel,currentScoreLabel, topBulletBoundary);
 		addTurretToGamePane(turret);
 		//turret.barrel.getTransforms().add(new Rotate(230, turret.barrel.getX() - 5,turret.barrel.getY()));
 		gameScreenLayout.addEventHandler(MouseEvent.MOUSE_MOVED, new EventHandler<MouseEvent>(){
@@ -102,7 +104,7 @@ private HashSet<Integer> missilePositionsX = new HashSet<>();
 				}
 			turret.rotateTurret(mouseX, mouseY);
 			turret.turretRecoil(getGameScreenLayout(),timeKeeper);
-			turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY);
+			turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY, topBulletBoundary);
 			turret.updateHealth();
 			if(turret.getTurretHealth() <= 0){
 				gameOver();
@@ -304,7 +306,4 @@ private HashSet<Integer> missilePositionsX = new HashSet<>();
 		turret = new Turret();
 		addTurretToGamePane(turret);
 	}
-	
-	
-	
 }
