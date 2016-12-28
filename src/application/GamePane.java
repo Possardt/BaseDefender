@@ -65,22 +65,22 @@ private HashSet<Integer> missilePositionsX = new HashSet<>();
 				
 		Missile missile = new Missile(2,700,500, 140, -30);
 		Missile missile1 = new Missile(3,700,500, 420, -50);
-		//Missile missile2 = new Missile(2,700,500);
-		//Missile missile3 = new Missile(3,700,500);
+		Missile missile2 = new Missile(2,700,500, 70, -40);
+		Missile missile3 = new Missile(3,700,500, 300, -20);
 		//Missile missile4 = new Missile(2,700,500);
 		
 		addMissileToPane(missile);
 		addMissileToPane(missile1);
-		//addMissileToPane(missile2);
-		//addMissileToPane(missile3);
+		addMissileToPane(missile2);
+		addMissileToPane(missile3);
 		//addMissileToPane(missile4);
 		missileContainer.add(missile);
 		missileContainer.add(missile1);
+		missileContainer.add(missile2);
+		missileContainer.add(missile3);
 		missilePositionsX.add((int)missile.getX());
 		missilePositionsX.add((int)missile1.getX());
 		resetGameValues();
-		//no brackets after this if statement? it does nothing.
-		//if(isGameStarted)
 		System.out.println("game timer started");
 		gameTimer = new AnimationTimer(){
 			@Override
@@ -92,6 +92,16 @@ private HashSet<Integer> missilePositionsX = new HashSet<>();
 					missile1.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout);
 					missile.animateMissile(gameScreenLayout, turret.getBulletIterator(),turret, missilePositionsX);
 					missile1.animateMissile(gameScreenLayout, turret.getBulletIterator(), turret, missilePositionsX);
+					
+					if(timeKeeper > 1000){
+						missile2.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout);
+						missile2.animateMissile(gameScreenLayout, turret.getBulletIterator(), turret, missilePositionsX);
+					}
+					
+					if(timeKeeper > 2000){
+						missile3.bulletMissileCollisionListener(turret.getBulletIterator(), gameScreenLayout);
+						missile3.animateMissile(gameScreenLayout, turret.getBulletIterator(), turret, missilePositionsX);
+					}
 					//missile2.animateMissile(gameScreenLayout, explosion2);
 					//missile3.animateMissile(gameScreenLayout, explosion3);
 					//missile4.animateMissile(gameScreenLayout, explosion4);
