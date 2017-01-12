@@ -116,7 +116,14 @@ private HashSet<Integer> missilePositionsX = new HashSet<>();
 					//missile4.bulletMissileCollision(turret.getBulletIterator());
 					iterateGameScore(timeKeeper);
 				}
-			
+				turret.rotateTurret(mouseX, mouseY);
+				turret.turretRecoil(getGameScreenLayout(),timeKeeper);
+				turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY, topBulletBoundary);
+				turret.updateHealth();
+				if(turret.getTurretHealth() <= 0){
+						gameOver();
+		 				this.stop();
+				}
 			timeKeeper++;				
 			updateGameScore();
 		}
