@@ -54,6 +54,7 @@ public class Turret {
 
 	public void turretRecoil(Pane p, int time){
 		int relativeTime = time - timeShot;
+		if(relativeTime == 0){return;}
 		if(barrel.getX() < 345){
 			barrel.setX(barrel.getX() + 1);
 			barrelEnd.setX(barrelEnd.getX() + 1);
@@ -73,7 +74,7 @@ public class Turret {
 	}
 	
 	public void turretShot(Pane p, int time, double mouseX, double mouseY, Rectangle topBulletBoundary){
-		if(time == timeShot){
+		if(time == timeShot && time != 0){
 			Circle bullet = new Circle(barrelEnd.getX(),barrelEnd.getY(),5);
 			p.getChildren().add(bullet);
 			barrelRotation.setAngle(barrelRotation.getAngle() + 5);

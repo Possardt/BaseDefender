@@ -16,7 +16,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 public class GamePane {
-private int timeKeeper;
+private int timeKeeper = 0;
 private Pane gameScreenLayout;
 private MainMenuPane mainMenuPane;
 private AnimationTimer gameTimer;
@@ -51,7 +51,11 @@ private HashSet<Integer> missilePositionsX = new HashSet<>();
 		gameScreenLayout.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>(){
 			@Override
 			public void handle(MouseEvent mouseEvent){
-				turret.setTimeShot(timeKeeper);
+				if(timeKeeper < 400){
+					return;
+				}else{
+					turret.setTimeShot(timeKeeper);
+				}
 			}
 		});
 		
@@ -112,14 +116,7 @@ private HashSet<Integer> missilePositionsX = new HashSet<>();
 					//missile4.bulletMissileCollision(turret.getBulletIterator());
 					iterateGameScore(timeKeeper);
 				}
-			turret.rotateTurret(mouseX, mouseY);
-			turret.turretRecoil(getGameScreenLayout(),timeKeeper);
-			turret.turretShot(getGameScreenLayout(),timeKeeper, mouseX, mouseY, topBulletBoundary);
-			turret.updateHealth();
-			if(turret.getTurretHealth() <= 0){
-				gameOver();
-				this.stop();
-			}
+			
 			timeKeeper++;				
 			updateGameScore();
 		}
